@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referência Rápida - Forja de Currículos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+            padding: 2rem;
+            line-height: 1.8;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #d4af37;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        h2 {
+            color: #e8c547;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section {
+            background-color: #2d2d2d;
+            border-left: 4px solid #d4af37;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .card {
+            background-color: #3d3d3d;
+            border: 1px solid #d4af37;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+        
+        .card-title {
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-content {
+            color: #c0c0c0;
+            font-size: 0.95rem;
+        }
+        
+        .key {
+            background-color: #1a1a1a;
+            color: #d4af37;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+        
+        ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        li {
+            margin: 0.3rem 0;
+        }
+        
+        .highlight {
+            color: #d4af37;
+            font-weight: bold;
+        }
+        
+        .code {
+            background-color: #1a1a1a;
+            border: 1px solid #d4af37;
+            padding: 0.5rem 1rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            margin: 0.5rem 0;
+        }
+        
+        .command {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 0.8rem 0;
+        }
+        
+        .command-key {
+            background-color: #1a1a1a;
+            border: 1px solid #d4af37;
+            padding: 0.4rem 0.8rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d4af37;
+            font-weight: bold;
+            min-width: 200px;
+        }
+        
+        .command-desc {
+            color: #c0c0c0;
+        }
+        
+        .warning {
+            background-color: #3d2820;
+            border-left-color: #8b4513;
+            color: #f5a623;
+        }
+        
+        .success {
+            background-color: #2d3d2d;
+            border-left-color: #6ba86b;
+            color: #a8d5a8;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            border: 1px solid #d4af37;
+            padding: 0.8rem;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #2d2d2d;
+            color: #d4af37;
+        }
+        
+        tr:nth-child(even) {
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #d4af37;
+            color: #c0c0c0;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Referência Rápida - Forja de Currículos</h1>
+        
+        <div class="section success">
+            <h2>Acesso Rápido</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-title">Abrir Aplicação</div>
+                    <div class="card-content">
+                        Duplo clique em <span class="key">index.html</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Documentação Completa</div>
+                    <div class="card-content">
+                        Abra <span class="key">README.md</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Todas as Features</div>
+                    <div class="card-content">
+                        Abra <span class="key">FEATURES.html</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Guia de Testes</div>
+                    <div class="card-content">
+                        Consulte <span class="key">TESTES.md</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Fluxo de Uso - Primeiros Passos</h2>
+        
+        <div class="section">
+            <ol>
+                <li><strong>Abrir index.html</strong> - Tela de login aparece</li>
+                <li><strong>Preencher cadastro</strong> - Nome, nascimento, e-mail</li>
+                <li><strong>Clicar "Entrar na Forja"</strong> - Vai para dashboard</li>
+                <li><strong>Preencher dados</strong> - Use as abas para adicionar informações</li>
+                <li><strong>Ver atualização em tempo real</strong> - Currículo se atualiza</li>
+                <li><strong>Exportar PDF</strong> - Baixe seu currículo</li>
+            </ol>
+        </div>
+        
+        <h2>Atalhos do Teclado</h2>
+        
+        <div class="section">
+            <div class="command">
+                <span class="command-key">Enter</span>
+                <span class="command-desc">Adiciona skill quando digitando na aba Skills</span>
+            </div>
+            <div class="command">
+                <span class="command-key">Tab</span>
+                <span class="command-desc">Navegação entre campos (padrão HTML)</span>
+            </div>
+            <div class="command">
+                <span class="command-key">Esc</span>
+                <span class="command-desc">Fecha modais (clique fora também funciona)</span>
+            </div>
+            <div class="command">
+                <span class="command-key">↑ ↑ ↓ ↓ ← → ← → B A</span>
+                <span class="command-desc">Konami Code para easter egg especial</span>
+            </div>
+        </div>
+        
+        <h2>Arquivos do Projeto</h2>
+        
+        <div class="section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Arquivo</th>
+                        <th>Descrição</th>
+                        <th>Tamanho</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="key">index.html</span></td>
+                        <td>Arquivo principal HTML</td>
+                        <td>~19 KB</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">styles.css</span></td>
+                        <td>Estilos e design responsivo</td>
+                        <td>~18 KB</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">script.js</span></td>
+                        <td>Lógica JavaScript</td>
+                        <td>~33 KB</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">README.md</span></td>
+                        <td>Documentação principal</td>
+                        <td>~6 KB</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">FEATURES.html</span></td>
+                        <td>Documentação de features</td>
+                        <td>~12 KB</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">TESTES.md</span></td>
+                        <td>Checklist de testes</td>
+                        <td>~8 KB</td>
+                    </tr>
+                    <tr>
+                        <td><span class="key">RAPIDA.html</span></td>
+                        <td>Este arquivo (referência rápida)</td>
+                        <td>~9 KB</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <h2>Principais Funcionalidades</h2>
+        
+        <div class="section">
+            <div class="grid">
+                <div class="card">
+                    <div class="card-title">📋 Dados Pessoais</div>
+                    <div class="card-content">
+                        Gerencie seus dados de contato e título profissional
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">🎓 Formação</div>
+                    <div class="card-content">
+                        Adicione cursos com cálculos automáticos de conclusão
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">💼 Experiência</div>
+                    <div class="card-content">
+                        Documente sua história profissional completa
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">🎯 Skills</div>
+                    <div class="card-content">
+                        Escolha de lista ou adicione suas próprias habilidades
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">🔗 Links</div>
+                    <div class="card-content">
+                        GitHub, LinkedIn, Portfólio - todos opcionais
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">📜 Certificados</div>
+                    <div class="card-content">
+                        Upload e armazenamento em base64 de documentos
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">🎨 Editor</div>
+                    <div class="card-content">
+                        Customize cores, fontes e tamanho do currículo
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">📥 Export PDF</div>
+                    <div class="card-content">
+                        Baixe seu currículo em PDF com todas as personalizações
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Paleta de Cores Padrão</h2>
+        
+        <div class="section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Elemento</th>
+                        <th>Cor</th>
+                        <th>Código</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fundo Principal</td>
+                        <td style="background-color: #1a1a1a; color: #d4af37;">███</td>
+                        <td>#1a1a1a</td>
+                    </tr>
+                    <tr>
+                        <td>Fundo Secundário</td>
+                        <td style="background-color: #2d2d2d; color: #d4af37;">███</td>
+                        <td>#2d2d2d</td>
+                    </tr>
+                    <tr>
+                        <td>Destaque (Ouro)</td>
+                        <td style="background-color: #d4af37; color: #1a1a1a;">███</td>
+                        <td>#d4af37</td>
+                    </tr>
+                    <tr>
+                        <td>Texto Principal</td>
+                        <td style="background-color: #1a1a1a; color: #f5f5f5;">███</td>
+                        <td>#f5f5f5</td>
+                    </tr>
+                    <tr>
+                        <td>Texto Secundário</td>
+                        <td style="background-color: #1a1a1a; color: #c0c0c0;">███</td>
+                        <td>#c0c0c0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <h2>localStorage - Estrutura de Dados</h2>
+        
+        <div class="section">
+            <div class="code">
+// Objeto user
+{
+  fullName: string,
+  birthDate: date,
+  email: string,
+  phone: string,
+  address: string,
+  professionalTitle: string,
+  aboutMe: string,
+  createdAt: timestamp
+}
+            </div>
+            
+            <div class="code">
+// Arrays
+education[] = { courseName, institution, startMonth, duration, completed }
+experience[] = { jobTitle, company, startDate, endDate, currentJob, description }
+skills[] = [string, string, ...]
+certificates[] = { name, file (base64), type, id }
+            </div>
+            
+            <div class="code">
+// Objeto links
+{
+  github: url,
+  linkedin: url,
+  portfolio: url
+}
+            </div>
+            
+            <div class="code">
+// Objeto editorSettings
+{
+  bgColor: hex,
+  textColor: hex,
+  accentColor: hex,
+  fontSize: number
+}
+            </div>
+        </div>
+        
+        <h2>Easter Eggs Descobertos</h2>
+        
+        <div class="section success">
+            <h3>Easter Egg #1: Os Anéis</h3>
+            <p>Clique <span class="highlight">5 vezes</span> na frase "Um anel para governar..." na tela de login.</p>
+            <p>Você verá uma sequência de citações do Anel Único do Senhor dos Anéis!</p>
+        </div>
+        
+        <div class="section success">
+            <h3>Easter Egg #2: Modo Invertido</h3>
+            <p>Digite o Konami Code: <span class="highlight">↑ ↑ ↓ ↓ ← → ← → B A</span></p>
+            <p>A tela piscará e exibirá uma mensagem especial com efeito de brilho dourado!</p>
+        </div>
+        
+        <h2>Dicas e Truques</h2>
+        
+        <div class="section">
+            <ul>
+                <li><strong>Backup automático:</strong> Use "Exportar PDF" regularmente para ter cópias</li>
+                <li><strong>Visualização em tempo real:</strong> O currículo se atualiza conforme você digita</li>
+                <li><strong>Formação inteligente:</strong> O sistema calcula conclusão automaticamente</li>
+                <li><strong>Mobile-friendly:</strong> Funciona perfeitamente em celulares</li>
+                <li><strong>Sem servidor:</strong> Tudo funciona localmente, sem perder dados</li>
+                <li><strong>Personalizável:</strong> Customize cores para combinar com sua marca pessoal</li>
+                <li><strong>Skills sugeridas:</strong> 40+ opções prontas + possibilidade de adicionar</li>
+                <li><strong>Certificados seguros:</strong> Armazenados em base64, sem acesso externo</li>
+            </ul>
+        </div>
+        
+        <h2>Solução de Problemas</h2>
+        
+        <div class="section warning">
+            <div class="grid">
+                <div class="card">
+                    <div class="card-title">Dados não salvam</div>
+                    <div class="card-content">
+                        Verifique se localStorage está ativado. Modo incógnito não funciona.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">PDF não exporta</div>
+                    <div class="card-content">
+                        Recarregue a página. Tente com menos dados. Verifique o console.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Cores incorretas</div>
+                    <div class="card-content">
+                        Clique "Resetar para Padrão" no editor. Limpe cache do navegador.
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Certificado não sobe</div>
+                    <div class="card-content">
+                        Limite: PDF e imagens. Preencha o nome. Arquivo não muito grande.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Combinações de Testes Recomendadas</h2>
+        
+        <div class="section">
+            <h3>Teste Rápido (5 minutos)</h3>
+            <ol>
+                <li>Fazer login com dados</li>
+                <li>Adicionar 1 educação e 1 experiência</li>
+                <li>Adicionar 3 skills</li>
+                <li>Exportar PDF</li>
+            </ol>
+        </div>
+        
+        <div class="section">
+            <h3>Teste Completo (20 minutos)</h3>
+            <ol>
+                <li>Login ou pular</li>
+                <li>Preencher todos os dados pessoais</li>
+                <li>Adicionar 2+ educações (completa e em andamento)</li>
+                <li>Adicionar 3+ experiências</li>
+                <li>Adicionar 10+ skills</li>
+                <li>Adicionar links opcionais</li>
+                <li>Personalizar cores no editor</li>
+                <li>Upload de certificado</li>
+                <li>Exportar PDF</li>
+                <li>Logout e verificar persistência</li>
+            </ol>
+        </div>
+        
+        <h2>Requisitos Técnicos Mínimos</h2>
+        
+        <div class="section">
+            <ul>
+                <li>Navegador moderno (Chrome 60+, Firefox 55+, Safari 12+, Edge 79+)</li>
+                <li>JavaScript habilitado</li>
+                <li>localStorage ativado (padrão em navegadores modernos)</li>
+                <li>Resolução mínima: 320px (mobile)</li>
+                <li>Conexão com CDN para html2pdf.js (para PDF)</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Forja de Currículos v1.0</strong></p>
+            <p>Design inspirado em O Senhor dos Anéis - J.R.R. Tolkien</p>
+            <p>Desenvolvido com HTML5, CSS3 e JavaScript</p>
+            <p>Última atualização: 06 de Fevereiro de 2026</p>
+        </div>
+    </div>
+</body>
+</html>

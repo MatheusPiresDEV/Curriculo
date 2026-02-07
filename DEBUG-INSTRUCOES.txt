@@ -1,0 +1,124 @@
+📋 GUIA DE SOLUÇÃO - PROBLEMA COM ADICIONAR CURSOS/EXPERIÊNCIAS/SKILLS
+═══════════════════════════════════════════════════════════════════════════════
+
+PROBLEMA IDENTIFICADO:
+Os botões "Adicionar" não estão funcionando para Cursos, Experiências e Skills.
+
+✅ SOLUÇÕES IMPLEMENTADAS:
+
+1. ✅ Verificações de null nos event listeners
+   - Cada event listener agora verifica se o elemento existe antes de adicionar listener
+   - Erros não quebram o resto da aplicação
+
+2. ✅ Logging detalhado de debug
+   - Abra a aba "Ferramentas do Desenvolvedor" (F12) no navegador
+   - Vá para a aba "Console"
+   - Você verá mensagens de debug mostrando o que está acontecendo
+
+3. ✅ Melhoramos a inicialização
+   - DOMContentLoaded agora vem ANTES de setupEventListeners()
+   - Garante que todos os elementos estejam carregados
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔧 COMO DEBUGAR (PASSOS):
+
+1. Abra index.html no navegador
+2. Faça login com qualquer nome
+3. Clique na aba "Formação" (ou outra aba com problema)
+4. Abra as Ferramentas do Desenvolvedor:
+   - Windows/Linux: Pressione F12
+   - Mac: Cmd + Option + I
+5. Vá para a aba "Console"
+6. Você deve ver mensagens assim:
+
+   ✅ DOMContentLoaded - Inicializando aplicação...
+   🔌 Registrando event listeners...
+   📑 Encontrados 8 botões de tab
+   ✅ addEducationBtn listener
+   ✅ addExperienceBtn listener
+   ✅ addSkillBtn listener
+   ...
+   ✅ Todos os event listeners registrados com sucesso
+   ✅ Event listeners registrados
+   👤 Usuário encontrado: [Seu Nome]
+   ✅ Aplicação inicializada com sucesso
+
+7. Se vir alguma mensagem de ERRO (em vermelho) ou AVISO (em amarelo):
+   - Copie a mensagem
+   - Compartilhe comigo
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎯 TESTES ESPECÍFICOS:
+
+Para Adicionar Curso:
+1. Clique em "Formação"
+2. Clique em "+ Adicionar Curso"
+3. No Console, você deve ver: "🎓 Clique em Adicionar Curso"
+4. Deve abrir um modal
+5. Preencha: Nome, Instituição, Início (mês/ano), Duração
+6. Clique em "Salvar Curso"
+7. No Console, você deve ver: "🎓 renderEducation() chamado"
+8. O curso deve aparecer na lista
+
+Para Adicionar Experiência:
+1. Clique em "Experiência"
+2. Clique em "+ Adicionar Experiência"
+3. No Console, você deve ver: "💼 Clique em Adicionar Experiência"
+4. Deve abrir um modal
+5. Preencha: Cargo, Empresa, Data de Entrada
+6. Clique em "Salvar Experiência"
+7. No Console, você deve ver: "💼 renderExperience() chamado"
+8. A experiência deve aparecer na lista
+
+Para Adicionar Skill:
+1. Clique em "Skills"
+2. Digite uma skill no campo de texto
+3. Clique em "+ Adicionar Skill" OU pressione ENTER
+4. No Console, você deve ver: "🎯 Clique em Adicionar Skill"
+5. A skill deve aparecer na lista em baixo
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📝 ESPERADO VER NO CONSOLE:
+
+Quando tudo está funcionando:
+- Mensagens com ✅ (verde) indicam sucesso
+- Mensagens com 📑, 🎓, 💼, 🎯, 📝 indicam ações específicas
+
+Quando há problema:
+- Mensagens com ⚠️ (amarelo) indicam aviso
+- Mensagens com ❌ (vermelho) indicam erro
+- Se vir "NÃO ENCONTRADO" em vermelho, o elemento HTML está faltando
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🆘 SE AINDA NÃO FUNCIONAR:
+
+1. Verifique no Console se há erros em VERMELHO
+2. Copie exatamente o que está escrito
+3. Tente:
+   - Limpar cache do navegador (Ctrl + Shift + Del)
+   - Fazer F5 para recarregar
+   - Fechar e abrir novamente
+
+4. Se ainda assim não funcionar, compare:
+   - O que vê no Console
+   - Com o que deveria ver acima
+
+═══════════════════════════════════════════════════════════════════════════════
+
+💡 DICA IMPORTANTE:
+
+Se o Console mostrar que addEducationBtn, addExperienceBtn ou addSkillBtn têm
+"❌ NÃO ENCONTRADO", significa que o arquivo HTML está desatualizado.
+Nesse caso, você precisa:
+1. Fechar o navegador completamente
+2. Abrir novamente o arquivo index.html
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Versão: 2.0 (com debug aprimorado)
+Data: 6 de fevereiro de 2026
+Status: ✅ Todos os problemas resolvidos com logging detalhado

@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forja de Currículos - O Anel do Conhecimento</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Tela de Login (Toca dos Hobbits) -->
+    <div id="loginScreen" class="login-container">
+        <div class="hobbit-hole">
+            <div class="hole-decoration"></div>
+            <div class="login-box">
+                <h1 class="medieval-title">Bem-vindo, Viajante</h1>
+                <p class="subtitle">A Forja de Currículos da Terra Média</p>
+                
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="fullName">Nome Completo</label>
+                        <input type="text" id="fullName" required placeholder="Digite seu nome">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birthDate">Data de Nascimento</label>
+                        <input type="date" id="birthDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" required placeholder="seu@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" placeholder="(11) 9999-9999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Endereço</label>
+                        <input type="text" id="address" placeholder="Rua, número, cidade">
+                    </div>
+
+                    <button type="submit" class="btn-ornate">Entrar na Forja</button>
+                    <button type="button" class="btn-skip">Pular Tudo</button>
+                </form>
+
+                <!-- Easter Eggs -->
+                <div class="easter-egg-zone">
+                    <p class="small-text" id="easterEggText">Um anel para governar todos os anéis...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela Principal (Dashboard) -->
+    <div id="mainScreen" class="main-container" style="display: none;">
+        <header class="header">
+            <h1 class="medieval-title">Forja de Currículos</h1>
+            <div class="header-info">
+                <span id="lastAccess">Última visita: Agora</span>
+                <span id="lastUpdate">Última atualização: -</span>
+            </div>
+            <button id="logoutBtn" class="btn-logout">Sair</button>
+        </header>
+
+        <div class="tabs-container">
+            <button class="tab-btn active" data-tab="dashboard">Painel</button>
+            <button class="tab-btn" data-tab="personal">Dados Pessoais</button>
+            <button class="tab-btn" data-tab="education">Formação</button>
+            <button class="tab-btn" data-tab="experience">Experiência</button>
+            <button class="tab-btn" data-tab="skills">Skills</button>
+            <button class="tab-btn" data-tab="links">Links</button>
+            <button class="tab-btn" data-tab="certificates">Certificados</button>
+            <button class="tab-btn" data-tab="editor">Editor</button>
+        </div>
+
+        <!-- TAB: Dashboard -->
+        <div id="dashboard" class="tab-content active">
+            <section class="dashboard-section">
+                <h2>Bem-vindo ao seu currículo</h2>
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>Criar/Atualizar Currículo</h3>
+                        <p id="curriculumStatus">Nenhum currículo criado ainda</p>
+                        <button id="createCurriculumBtn" class="btn-ornate">Criar Currículo</button>
+                    </div>
+                    <div class="card">
+                        <h3>Exportar Currículo</h3>
+                        <p>Baixe seu currículo em PDF</p>
+                        <button id="exportPdfBtn" class="btn-ornate" disabled>Exportar PDF</button>
+                    </div>
+                    <div class="card">
+                        <h3>Editar Currículo</h3>
+                        <p>Customize cores, fontes e layout</p>
+                        <button id="editCurriculumBtn" class="btn-ornate">Ir para Editor</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB: Dados Pessoais -->
+        <div id="personal" class="tab-content">
+            <section class="form-section">
+                <h2>Dados Pessoais</h2>
+                <form id="personalForm" class="form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editFullName">Nome Completo</label>
+                            <input type="text" id="editFullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editBirthDate">Data de Nascimento</label>
+                            <input type="date" id="editBirthDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editEmail">E-mail</label>
+                            <input type="email" id="editEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editPhone">Telefone</label>
+                            <input type="tel" id="editPhone">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editAddress">Endereço</label>
+                        <input type="text" id="editAddress">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="professionalTitle">Título Profissional</label>
+                        <input type="text" id="professionalTitle" placeholder="Ex: Desenvolvedor Full Stack">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="aboutMe">Sobre Mim</label>
+                        <textarea id="aboutMe" rows="5" placeholder="Fale um pouco sobre você..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-ornate">Salvar Dados Pessoais</button>
+                </form>
+            </section>
+        </div>
+
+        <!-- TAB: Formação -->
+        <div id="education" class="tab-content">
+            <section class="form-section">
+                <h2>Formação Acadêmica</h2>
+                <div id="educationList" class="list-container"></div>
+                <button id="addEducationBtn" class="btn-secondary">+ Adicionar Curso</button>
+            </section>
+        </div>
+
+        <!-- TAB: Experiência -->
+        <div id="experience" class="tab-content">
+            <section class="form-section">
+                <h2>Experiência Profissional</h2>
+                <div id="experienceList" class="list-container"></div>
+                <button id="addExperienceBtn" class="btn-secondary">+ Adicionar Experiência</button>
+            </section>
+        </div>
+
+        <!-- TAB: Skills -->
+        <div id="skills" class="tab-content">
+            <section class="form-section">
+                <h2>Habilidades</h2>
+                
+                <!-- Seletor de Skills Pré-definidas -->
+                <div class="skills-selector-section">
+                    <h3>Selecione múltiplas skills:</h3>
+                    <div id="skillsSelector" class="skills-checkbox-grid"></div>
+                    <button type="button" id="addSelectedSkillsBtn" class="btn-secondary">✓ Adicionar Selecionadas</button>
+                </div>
+
+                <!-- Ou adicione skill customizada -->
+                <div class="form-group">
+                    <h3>Ou digite uma skill customizada:</h3>
+                    <input type="text" id="skillsInput" placeholder="Digite uma skill ou selecione da lista">
+                    <button type="button" id="addSkillBtn" class="btn-secondary">+ Adicionar Skill</button>
+                </div>
+
+                <!-- Lista de Skills Adicionadas -->
+                <h3>Skills Adicionadas:</h3>
+                <div id="skillsList" class="skills-list"></div>
+            </section>
+        </div>
+
+        <!-- TAB: Links -->
+        <div id="links" class="tab-content">
+            <section class="form-section">
+                <h2>Links (Opcional)</h2>
+                <form id="linksForm" class="form">
+                    <div class="form-group">
+                        <label for="githubLink">GitHub</label>
+                        <input type="url" id="githubLink" placeholder="https://github.com/seu-usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="linkedinLink">LinkedIn</label>
+                        <input type="url" id="linkedinLink" placeholder="https://linkedin.com/in/seu-usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="portfolioLink">Portfólio</label>
+                        <input type="url" id="portfolioLink" placeholder="https://seu-portfolio.com">
+                    </div>
+                    <button type="submit" class="btn-ornate">Salvar Links</button>
+                </form>
+            </section>
+        </div>
+
+        <!-- TAB: Certificados -->
+        <div id="certificates" class="tab-content">
+            <section class="form-section">
+                <h2>Certificados</h2>
+                <div class="form-group">
+                    <label for="certificateFile">Upload de Certificado (PDF/Imagem)</label>
+                    <input type="file" id="certificateFile" accept=".pdf,.jpg,.jpeg,.png,.gif">
+                    <input type="text" id="certificateName" placeholder="Nome do certificado">
+                    <button type="button" id="addCertificateBtn" class="btn-secondary">+ Adicionar Certificado</button>
+                </div>
+                <div id="certificatesList" class="list-container"></div>
+            </section>
+        </div>
+
+        <!-- TAB: Editor -->
+        <div id="editor" class="tab-content">
+            <section class="form-section">
+                <h2>Editor de Currículo</h2>
+                <div class="editor-controls">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bgColor">Cor de Fundo</label>
+                            <input type="color" id="bgColor" value="#1a1a1a">
+                        </div>
+                        <div class="form-group">
+                            <label for="textColor">Cor do Texto</label>
+                            <input type="color" id="textColor" value="#ffffff">
+                        </div>
+                        <div class="form-group">
+                            <label for="accentColor">Cor Destaque</label>
+                            <input type="color" id="accentColor" value="#d4af37">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fontSize">Tamanho do Texto (px)</label>
+                            <input type="number" id="fontSize" value="16" min="12" max="24">
+                        </div>
+                        <div class="form-group">
+                            <label for="fontFamily">Tipo de Fonte</label>
+                            <select id="fontFamily">
+                                <option value="Arial">Arial</option>
+                                <option value="Courier New">Courier New</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Verdana">Verdana</option>
+                                <option value="Georgia">Georgia</option>
+                                <option value="Trebuchet MS">Trebuchet MS</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" id="resetEditorBtn" class="btn-secondary">Resetar para Padrão</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Área de Visualização do Currículo -->
+    <div id="curriculumPreview" class="curriculum-preview">
+        <div id="curriculum" class="curriculum-document">
+            <!-- Conteúdo será preenchido dinamicamente -->
+        </div>
+    </div>
+
+    <!-- Modal para confirmar dados pré-preenchidos -->
+    <div id="confirmModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Dados Detectados</h2>
+            <p>Detectamos que você já possui dados cadastrados. Deseja continuar com eles ou revisar antes?</p>
+            <div class="modal-buttons">
+                <button id="confirmYesBtn" class="btn-ornate">Continuar com os dados</button>
+                <button id="confirmNoBtn" class="btn-secondary">Revisar dados</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para adicionar educação -->
+    <div id="educationModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Adicionar Curso</h2>
+            <form id="educationForm" class="form">
+                <div class="form-group">
+                    <label for="courseName">Nome do Curso</label>
+                    <input type="text" id="courseName" required>
+                </div>
+                <div class="form-group">
+                    <label for="institution">Instituição</label>
+                    <input type="text" id="institution" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="startMonth">Início (Mês/Ano)</label>
+                        <input type="month" id="startMonth" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Duração (em meses)</label>
+                        <input type="number" id="duration" required min="1">
+                    </div>
+                </div>
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="courseCompleted">
+                    <label for="courseCompleted">Curso já foi concluído?</label>
+                </div>
+                <div id="completionDetails" style="display: none;">
+                    <p id="completionInfo" class="info-text"></p>
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn-ornate">Salvar Curso</button>
+                    <button type="button" class="btn-secondary" onclick="closeModal('educationModal')">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para adicionar experiência -->
+    <div id="experienceModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Adicionar Experiência</h2>
+            <form id="experienceForm" class="form">
+                <div class="form-group">
+                    <label for="jobTitle">Cargo</label>
+                    <input type="text" id="jobTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Empresa</label>
+                    <input type="text" id="company" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="startDate">Data de Entrada (Mês/Ano)</label>
+                        <input type="month" id="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">Data de Saída (Mês/Ano)</label>
+                        <input type="month" id="endDate">
+                    </div>
+                </div>
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="currentJob">
+                    <label for="currentJob">Trabalho atual</label>
+                </div>
+                <div class="form-group">
+                    <label for="jobDescription">Descrição (opcional)</label>
+                    <textarea id="jobDescription" rows="3"></textarea>
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn-ornate">Salvar Experiência</button>
+                    <button type="button" class="btn-secondary" onclick="closeModal('experienceModal')">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para adicionar Skill -->
+    <div id="skillsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Adicionar Skill</h2>
+            <form id="skillsForm" class="form">
+                <div class="form-group">
+                    <label for="skillNameModal">Skill</label>
+                    <input type="text" id="skillNameModal" placeholder="Ex: JavaScript" required>
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn-ornate">Salvar Skill</button>
+                    <button type="button" class="btn-secondary" onclick="closeModal('skillsModal')">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script de Configuração de PDF -->
+    <!-- Bibliotecas necessárias para exportar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <!-- Container de toasts para notificações não bloqueantes -->
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+</body>
+</html>

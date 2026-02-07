@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 TESTE SIMPLIFICADO - Botões</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Georgia, serif;
+            background: #1a1a1a;
+            color: #f5f5f5;
+            padding: 40px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { color: #d4af37; margin-bottom: 30px; }
+        .test-section {
+            background: #2d2d2d;
+            border: 2px solid #d4af37;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .btn-secondary {
+            background-color: #2d2d2d;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            border-radius: 5px;
+            padding: 0.7rem 1.2rem;
+            font-size: 0.95rem;
+            font-weight: bold;
+            font-family: Georgia, serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #3d3d3d;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        .modal.show {
+            display: block;
+        }
+        .modal-content {
+            background: #2d2d2d;
+            margin: 10% auto;
+            padding: 20px;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+        }
+        .close {
+            color: #d4af37;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover { color: #fff; }
+        .log-box {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .log-line { margin: 3px 0; }
+        .success { color: #7cf07c; }
+        .error { color: #ff6b6b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 TESTE SIMPLIFICADO - Botões + Modais</h1>
+        
+        <div class="test-section">
+            <h2>Teste 1: Botão Simples</h2>
+            <button id="addEducationBtn" class="btn-secondary">+ Adicionar Curso</button>
+            <button id="addExperienceBtn" class="btn-secondary" style="margin-left: 10px;">+ Adicionar Experiência</button>
+            <button id="addSkillBtn" class="btn-secondary" style="margin-left: 10px;">+ Adicionar Skill</button>
+        </div>
+
+        <!-- Modais -->
+        <div id="educationModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('educationModal')">&times;</span>
+                <h2>Adicionar Curso</h2>
+                <form id="educationForm">
+                    <div style="margin: 10px 0;">
+                        <label for="courseName">Nome do Curso:</label>
+                        <input type="text" id="courseName" required style="width: 100%; padding: 5px;">
+                    </div>
+                    <div style="margin: 10px 0;">
+                        <label for="institution">Instituição:</label>
+                        <input type="text" id="institution" required style="width: 100%; padding: 5px;">
+                    </div>
+                    <button type="submit" style="background: #d4af37; color: #1a1a1a; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Salvar</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="experienceModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('experienceModal')">&times;</span>
+                <h2>Adicionar Experiência</h2>
+                <p>Modal de Experiência</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Log de Eventos</h2>
+            <div class="log-box" id="logBox"></div>
+        </div>
+    </div>
+
+    <script>
+        const logBox = document.getElementById('logBox');
+
+        function log(msg, type = 'success') {
+            const line = document.createElement('div');
+            line.className = `log-line ${type}`;
+            line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            logBox.appendChild(line);
+            logBox.scrollTop = logBox.scrollHeight;
+            console.log(msg);
+        }
+
+        function openModal(modalId) {
+            log(`openModal("${modalId}") foi chamado`, 'success');
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('show');
+                log(`✅ Modal "${modalId}" aberto com sucesso`, 'success');
+            } else {
+                log(`❌ Modal "${modalId}" não encontrado`, 'error');
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('show');
+                log(`✅ Modal "${modalId}" fechado`, 'success');
+            }
+        }
+
+        // Registrar listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            log('📄 Página carregada', 'success');
+
+            const addEducationBtn = document.getElementById('addEducationBtn');
+            const addExperienceBtn = document.getElementById('addExperienceBtn');
+            const addSkillBtn = document.getElementById('addSkillBtn');
+
+            if (addEducationBtn) {
+                log('✅ addEducationBtn encontrado', 'success');
+                addEducationBtn.addEventListener('click', (e) => {
+                    log('🖱️ CLIQUE em addEducationBtn', 'success');
+                    openModal('educationModal');
+                });
+            } else {
+                log('❌ addEducationBtn NÃO ENCONTRADO', 'error');
+            }
+
+            if (addExperienceBtn) {
+                log('✅ addExperienceBtn encontrado', 'success');
+                addExperienceBtn.addEventListener('click', () => {
+                    log('🖱️ CLIQUE em addExperienceBtn', 'success');
+                    openModal('experienceModal');
+                });
+            } else {
+                log('❌ addExperienceBtn NÃO ENCONTRADO', 'error');
+            }
+
+            if (addSkillBtn) {
+                log('✅ addSkillBtn encontrado', 'success');
+                addSkillBtn.addEventListener('click', () => {
+                    log('🖱️ CLIQUE em addSkillBtn', 'success');
+                    alert('Clique funcionou!');
+                });
+            } else {
+                log('❌ addSkillBtn NÃO ENCONTRADO', 'error');
+            }
+
+            // Fechar modal ao clicar fora
+            window.onclick = (event) => {
+                const educationModal = document.getElementById('educationModal');
+                const experienceModal = document.getElementById('experienceModal');
+                if (event.target === educationModal) {
+                    closeModal('educationModal');
+                }
+                if (event.target === experienceModal) {
+                    closeModal('experienceModal');
+                }
+            };
+
+            // Form submission
+            const educationForm = document.getElementById('educationForm');
+            if (educationForm) {
+                educationForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    log(`📝 Formulário enviado: ${document.getElementById('courseName').value}`, 'success');
+                    closeModal('educationModal');
+                    educationForm.reset();
+                });
+            }
+
+            log('🎯 Tudo pronto! Clique nos botões acima', 'success');
+        });
+    </script>
+</body>
+</html>

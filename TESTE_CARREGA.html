@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carregar Dados de Teste - Forja de Currículos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background-color: #2d2d2d;
+            border: 3px solid #d4af37;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        h1 {
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        p {
+            color: #c0c0c0;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #d4af37 0%, #e8c547 100%);
+            color: #000;
+            border: 2px solid #d4af37;
+            border-radius: 5px;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: 'Georgia', serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+        
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #d4af37;
+        }
+        
+        .info {
+            background-color: #3d3d3d;
+            border-left: 3px solid #d4af37;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #c0c0c0;
+        }
+        
+        .highlight {
+            color: #d4af37;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Carregar Dados de Teste</h1>
+        
+        <p>Escolha um perfil de teste para pré-carregar dados:</p>
+        
+        <div class="buttons">
+            <button onclick="loadTestProfile('junior')">
+                Desenvolvedor Júnior
+            </button>
+            
+            <button onclick="loadTestProfile('senior')">
+                Gerente Sênior
+            </button>
+            
+            <button onclick="loadTestProfile('designer')">
+                Designer Criativo
+            </button>
+            
+            <div class="divider">OU</div>
+            
+            <button onclick="window.location.href='index.html'">
+                Ir para Aplicação Vazia
+            </button>
+        </div>
+        
+        <div class="info">
+            <p><span class="highlight">Nota:</span> Os dados de teste serão carregados no localStorage. 
+            Para limpar, logout e faça login novamente com seus próprios dados.</p>
+        </div>
+    </div>
+    
+    <script>
+        function loadTestProfile(profile) {
+            let testData = {};
+            
+            if (profile === 'junior') {
+                testData = {
+                    user: {
+                        fullName: 'João Pedro Silva',
+                        birthDate: '2000-01-15',
+                        email: 'joao@example.com',
+                        phone: '(11) 99999-0000',
+                        address: 'Rua A, 123, São Paulo, SP',
+                        professionalTitle: 'Desenvolvedor Full Stack Junior',
+                        aboutMe: 'Sou um desenvolvedor júnior apaixonado por tecnologia com experiência em desenvolvimento web. Atualmente estou aprimorando minhas habilidades em React e Node.js. Tenho facilidade em aprender novas tecnologias e sou proativo na resolução de problemas.',
+                        createdAt: new Date().toISOString()
+                    },
+                    education: [
+                        {
+                            id: 1,
+                            courseName: 'Análise de Sistemas',
+                            institution: 'FATEC São Paulo',
+                            startMonth: '2021-02',
+                            duration: 24,
+                            completed: false
+                        },
+                        {
+                            id: 2,
+                            courseName: 'Bootcamp Full Stack',
+                            institution: 'Coding Academy',
+                            startMonth: '2022-06',
+                            duration: 12,
+                            completed: true
+                        }
+                    ],
+                    experience: [
+                        {
+                            id: 1,
+                            jobTitle: 'Desenvolvedor Junior',
+                            company: 'Tech Startup XYZ',
+                            startDate: '2023-01',
+                            endDate: '',
+                            currentJob: true,
+                            description: 'Desenvolvimento de aplicações web com React e Node.js. Manutenção e otimização de código existente.'
+                        },
+                        {
+                            id: 2,
+                            jobTitle: 'Estagiário Desenvolvedor',
+                            company: 'Tech Company ABC',
+                            startDate: '2022-09',
+                            endDate: '2022-12',
+                            currentJob: false,
+                            description: 'Desenvolvimento de features em HTML, CSS e JavaScript. Suporte a testes unitários.'
+                        }
+                    ],
+                    skills: ['JavaScript', 'React', 'Node.js', 'PostgreSQL', 'HTML', 'CSS', 'Git', 'REST API', 'Proatividade', 'Colaboração'],
+                    links: {
+                        github: 'https://github.com/joaopedro',
+                        linkedin: 'https://linkedin.com/in/joaopedro',
+                        portfolio: 'https://joaopedro.dev'
+                    },
+                    certificates: [],
+                    editorSettings: {
+                        bgColor: '#1a1a1a',
+                        textColor: '#f5f5f5',
+                        accentColor: '#d4af37',
+                        fontSize: '16'
+                    },
+                    lastAccess: new Date().toISOString(),
+                    lastCurriculumUpdate: new Date().toISOString()
+                };
+            } else if (profile === 'senior') {
+                testData = {
+                    user: {
+                        fullName: 'Maria da Silva Santos',
+                        birthDate: '1985-05-20',
+                        email: 'maria@example.com',
+                        phone: '(21) 98888-0000',
+                        address: 'Av. Paulista, 1000, São Paulo, SP',
+                        professionalTitle: 'Gerente de Projetos TI Sênior',
+                        aboutMe: 'Profissional com mais de 15 anos de experiência em desenvolvimento e gestão de projetos. Especialista em liderança de equipes, metodologias ágeis e entrega de projetos complexos. Comprometida com excelência, inovação e desenvolvimento contínuo.',
+                        createdAt: new Date().toISOString()
+                    },
+                    education: [
+                        {
+                            id: 1,
+                            courseName: 'Administração',
+                            institution: 'Universidade de São Paulo (USP)',
+                            startMonth: '2003-02',
+                            duration: 48,
+                            completed: true
+                        },
+                        {
+                            id: 2,
+                            courseName: 'MBA Gestão de Projetos',
+                            institution: 'Fundação Getúlio Vargas (FGV)',
+                            startMonth: '2015-01',
+                            duration: 24,
+                            completed: true
+                        },
+                        {
+                            id: 3,
+                            courseName: 'Certificação PMP',
+                            institution: 'Project Management Institute',
+                            startMonth: '2018-03',
+                            duration: 6,
+                            completed: true
+                        }
+                    ],
+                    experience: [
+                        {
+                            id: 1,
+                            jobTitle: 'Gerente de Projetos TI Sênior',
+                            company: 'Empresa Global Tech',
+                            startDate: '2016-01',
+                            endDate: '',
+                            currentJob: true,
+                            description: 'Liderança de equipes multidisciplinares. Gestão de projetos complexos com orçamentos de até 2 milhões. Implementação de metodologias ágeis (Scrum/Kanban). Melhoria contínua de processos.'
+                        },
+                        {
+                            id: 2,
+                            jobTitle: 'Tech Lead',
+                            company: 'Empresa de Tecnologia B',
+                            startDate: '2010-06',
+                            endDate: '2015-12',
+                            currentJob: false,
+                            description: 'Liderança técnica de equipe. Arquitetura de soluções. Mentorado 10+ desenvolvedores júnior. Redução de tempo de deploy em 40%.'
+                        },
+                        {
+                            id: 3,
+                            jobTitle: 'Desenvolvedora Senior',
+                            company: 'Tech Company A',
+                            startDate: '2007-03',
+                            endDate: '2010-05',
+                            currentJob: false,
+                            description: 'Desenvolvimento de aplicações enterprise. Implementação de padrões de código. Code review e quality assurance.'
+                        },
+                        {
+                            id: 4,
+                            jobTitle: 'Desenvolvedora Júnior',
+                            company: 'Startup Inicial',
+                            startDate: '2003-07',
+                            endDate: '2007-02',
+                            currentJob: false,
+                            description: 'Desenvolvimento full stack. Suporte a cliente. Documentação técnica.'
+                        }
+                    ],
+                    skills: ['Liderança', 'Gestão de Projetos', 'Scrum', 'Kanban', 'Comunicação', 'Resolução de Problemas', 'Excel', 'Power BI', 'SQL', 'JavaScript', 'Python', 'Colaboração', 'Criatividade', 'Mentoria', 'Apresentações'],
+                    links: {
+                        github: 'https://github.com/mariasilva',
+                        linkedin: 'https://linkedin.com/in/mariasilva',
+                        portfolio: 'https://mariasilva.portfolio'
+                    },
+                    certificates: [],
+                    editorSettings: {
+                        bgColor: '#1a1a1a',
+                        textColor: '#f5f5f5',
+                        accentColor: '#d4af37',
+                        fontSize: '16'
+                    },
+                    lastAccess: new Date().toISOString(),
+                    lastCurriculumUpdate: new Date().toISOString()
+                };
+            } else if (profile === 'designer') {
+                testData = {
+                    user: {
+                        fullName: 'Carlos André Costa',
+                        birthDate: '1992-08-10',
+                        email: 'carlos@example.com',
+                        phone: '(85) 99555-1234',
+                        address: 'Rua das Flores, 456, Fortaleza, CE',
+                        professionalTitle: 'Design Gráfico e UX/UI Designer',
+                        aboutMe: 'Designer criativo com paixão por criar experiências visuais incríveis. Especialista em design de interface, branding e design thinking. Tenho forte sensibilidade estética combinada com conhecimento técnico de ferramentas modernas de design e prototipagem.',
+                        createdAt: new Date().toISOString()
+                    },
+                    education: [
+                        {
+                            id: 1,
+                            courseName: 'Design Gráfico',
+                            institution: 'Universidade de Fortaleza (Unifor)',
+                            startMonth: '2010-02',
+                            duration: 48,
+                            completed: true
+                        },
+                        {
+                            id: 2,
+                            courseName: 'UX/UI Design Masterclass',
+                            institution: 'Interaction Design Foundation',
+                            startMonth: '2021-05',
+                            duration: 12,
+                            completed: true
+                        }
+                    ],
+                    experience: [
+                        {
+                            id: 1,
+                            jobTitle: 'UX/UI Designer Sênior',
+                            company: 'Digital Innovations Co.',
+                            startDate: '2019-03',
+                            endDate: '',
+                            currentJob: true,
+                            description: 'Design de interfaces para aplicações web e mobile. User research e testes A/B. Prototipagem em Figma. Liderança de equipe design.'
+                        },
+                        {
+                            id: 2,
+                            jobTitle: 'Designer Gráfico',
+                            company: 'Agência Criativa Brasil',
+                            startDate: '2015-08',
+                            endDate: '2019-02',
+                            currentJob: false,
+                            description: 'Design de identidade visual e branding. Campanhas publicitárias. Materiais de marketing. Arte-final e pré-impressão.'
+                        },
+                        {
+                            id: 3,
+                            jobTitle: 'Designer Júnior',
+                            company: 'Studio Design Local',
+                            startDate: '2012-06',
+                            endDate: '2015-07',
+                            currentJob: false,
+                            description: 'Design de peças gráficas. Edição de imagens. Suporte a clientes internos.'
+                        }
+                    ],
+                    skills: ['Figma', 'Adobe XD', 'Photoshop', 'Illustrator', 'InDesign', 'Prototyping', 'User Research', 'UI Design', 'UX Design', 'Design Thinking', 'Branding', 'Typography', 'Color Theory', 'Comunicação Visual', 'Criatividade', 'Atenção ao Detalhe'],
+                    links: {
+                        github: '',
+                        linkedin: 'https://linkedin.com/in/carlosandre',
+                        portfolio: 'https://carlosandre.design'
+                    },
+                    certificates: [],
+                    editorSettings: {
+                        bgColor: '#0a0a0a',
+                        textColor: '#ffffff',
+                        accentColor: '#ff6b9d',
+                        fontSize: '15'
+                    },
+                    lastAccess: new Date().toISOString(),
+                    lastCurriculumUpdate: new Date().toISOString()
+                };
+            }
+            
+            // Salvar todos os dados no localStorage
+            localStorage.setItem('user', JSON.stringify(testData.user));
+            localStorage.setItem('education', JSON.stringify(testData.education));
+            localStorage.setItem('experience', JSON.stringify(testData.experience));
+            localStorage.setItem('skills', JSON.stringify(testData.skills));
+            localStorage.setItem('links', JSON.stringify(testData.links));
+            localStorage.setItem('certificates', JSON.stringify(testData.certificates));
+            localStorage.setItem('editorSettings', JSON.stringify(testData.editorSettings));
+            localStorage.setItem('lastAccess', testData.lastAccess);
+            localStorage.setItem('lastCurriculumUpdate', testData.lastCurriculumUpdate);
+            localStorage.setItem('curriculum', JSON.stringify({ createdAt: new Date().toISOString() }));
+            
+            // Redirecionar para o aplicativo
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

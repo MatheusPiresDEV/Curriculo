@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forja de Currículos - Índice de Arquivos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d1810 100%);
+            color: #f5f5f5;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+            border: 3px solid #d4af37;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        h1 {
+            color: #d4af37;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .subtitle {
+            color: #d4af37;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+        
+        .description {
+            color: #c0c0c0;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        h2 {
+            color: #e8c547;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 0.5rem;
+            margin: 2rem 0 1.5rem 0;
+            font-size: 1.8rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+            border-color: #e8c547;
+        }
+        
+        .card-title {
+            color: #d4af37;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .card-description {
+            color: #c0c0c0;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+        
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .file-size {
+            color: #d4af37;
+            font-size: 0.85rem;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37 0%, #e8c547 100%);
+            color: #000;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Georgia', serif;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37 0%, #e8c547 100%);
+            color: #000;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-dark);
+            color: #d4af37;
+            border: 2px solid #d4af37;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            border: 1px solid #d4af37;
+        }
+        
+        .main-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .highlight {
+            color: #d4af37;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #d4af37;
+            color: #c0c0c0;
+        }
+        
+        .stats {
+            background-color: #2d2d2d;
+            border: 2px solid #d4af37;
+            border-radius: 5px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+        
+        .stat {
+            color: #d4af37;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4af37;
+        }
+        
+        .stat-label {
+            color: #c0c0c0;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Forja de Currículos</h1>
+            <p class="subtitle">A Forja de Currículos da Terra Média</p>
+            <p class="description">
+                Um site completo para criar, editar, personalizar e exportar currículos em PDF.
+                Design medieval inspirado em O Senhor dos Anéis, com HTML5, CSS3 puro e JavaScript.
+            </p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">9</div>
+                <div class="stat-label">Arquivos</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">~150KB</div>
+                <div class="stat-label">Tamanho Total</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Dependências Externas</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">LocalStorage</div>
+            </div>
+        </div>
+        
+        <h2>Iniciar Aplicação</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">Começar do Zero</div>
+                <div class="card-description">
+                    Abra a aplicação vazia e comece a preencher seus dados. O sistema vai guiá-lo por cada etapa.
+                </div>
+                <div class="card-meta">
+                    <span class="file-size">19.3 KB</span>
+                    <a href="index.html" class="btn btn-primary">Abrir</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Carregar Dados de Teste</div>
+                <div class="card-description">
+                    Escolha entre 3 perfis de teste (Júnior, Sênior, Designer) com dados pré-carregados para explorar todas as funcionalidades.
+                </div>
+                <div class="card-meta">
+                    <span class="file-size">17.8 KB</span>
+                    <a href="TESTE_CARREGA.html" class="btn btn-primary">Ver Perfis</a>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Documentação</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">Guia Principal</div>
+                <div class="card-description">
+                    Documentação completa do projeto: funcionalidades, requisitos técnicos, armazenamento em localStorage, troubleshooting e dicas de uso.
+                </div>
+                <div class="card-meta">
+                    <span class="file-size">5.9 KB</span>
+                    <a href="README.md" class="btn btn-primary">Ler</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Todas as Features</div>
+                <div class="card-description">
+                    Documentação detalhada de todas as 14 features principais com exemplos de código, screenshots de UI e comportamentos esperados.
+                </div>
+                <div class="card-meta">
+                    <span class="file-size">19.9 KB</span>
+                    <a href="FEATURES.html" class="btn btn-primary">Explorar</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Referência Rápida</div>
+                <div class="card-description">
+                    Cheat sheet com atalhos, estrutura de dados, easter eggs, dicas de troubleshooting e combinações de testes rápidos.
+                </div>
+                <div class="card-meta">
+                    <span class="file-size">19.7 KB</span>
+                    <a href="RAPIDA.html" class="btn btn-primary">Consultar</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Checklist de Testes</div>
+                <div class="card-description">
+                    Guia completo com ~100 testes para validar todas as funcionalidades, responsividade, easter eggs e performance.
+                </div>
+                <div class="card-meta">
+                    <span class="file-size">8.3 KB</span>
+                    <a href="TESTES.md" class="btn btn-primary">Ver Testes</a>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Arquivos Técnicos</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">index.html</div>
+                <div class="card-description">
+                    Arquivo HTML principal com toda a estrutura semântica. Contém login, dashboard, formulários, modais e visualização do currículo.
+                </div>
+                <span class="tag">HTML5</span>
+                <span class="tag">19.3 KB</span>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">styles.css</div>
+                <div class="card-description">
+                    Estilos CSS puro com design medieval, tema escuro com ouro, responsive mobile-first, animações e efeitos visuais.
+                </div>
+                <span class="tag">CSS3</span>
+                <span class="tag">17.7 KB</span>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">script.js</div>
+                <div class="card-description">
+                    Lógica JavaScript com 1000+ linhas. Gerenciamento de localStorage, cálculos automáticos, atualização em tempo real, export PDF.
+                </div>
+                <span class="tag">JavaScript</span>
+                <span class="tag">33 KB</span>
+            </div>
+        </div>
+        
+        <h2>Principais Funcionalidades</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">Login e Autenticação</div>
+                <div class="card-description">
+                    Tela de login local inspirada na toca dos Hobbits. Sem autenticação externa. Todos os dados em localStorage.
+                </div>
+                <span class="tag">Easter Eggs Inclusos</span>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Formação Acadêmica</div>
+                <div class="card-description">
+                    Cálculos automáticos de previsão de término, meses restantes, percentual concluído. Suporte para cursos concluídos e em andamento.
+                </div>
+                <span class="tag">Inteligente</span>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Experiência Profissional</div>
+                <div class="card-description">
+                    Múltiplas entradas com cargo, empresa, datas, descrição. Suporte para trabalho atual. Histórico completo.
+                </div>
+                <span class="tag">Completo</span>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Skills com Sugestões</div>
+                <div class="card-description">
+                    40+ skills pré-carregadas (linguagens, frameworks, ferramentas, soft skills). Possibilidade de adicionar personalizadas.
+                </div>
+                <span class="tag">40+ Sugestões</span>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Certificados Base64</div>
+                <div class="card-description">
+                    Upload de arquivos convertidos para base64. Armazenamento completo em localStorage. Download e visualização.
+                </div>
+                <span class="tag">Seguro</span>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Editor Personalizável</div>
+                <div class="card-description">
+                    Customize cores (fundo, texto, destaque), tamanho de fonte. Visualização em tempo real de todas as mudanças.
+                </div>
+                <span class="tag">Em Tempo Real</span>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Exportação em PDF</div>
+                <div class="card-description">
+                    Download automático com nome formatado. Preserva cores, fontes e layout. Integrado com html2pdf.js.
+                </div>
+                <span class="tag">PDF Completo</span>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Design Responsivo</div>
+                <div class="card-description">
+                    Mobile-first com breakpoints em 480px e 768px. Funciona perfeitamente em smartphone, tablet e desktop.
+                </div>
+                <span class="tag">Mobile First</span>
+            </div>
+        </div>
+        
+        <h2>Estrutura de Dados localStorage</h2>
+        
+        <div class="section">
+            <p style="color: #c0c0c0; margin-bottom: 1rem;">
+                O sistema usa 9 chaves no localStorage para persistência completa:
+            </p>
+            <pre style="background-color: #2d2d2d; border: 1px solid #d4af37; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #d4af37;">
+• <span class="highlight">user</span> - Dados pessoais (nome, email, telefone, endereço, etc)
+• <span class="highlight">education</span> - Array de cursos com cálculos automáticos
+• <span class="highlight">experience</span> - Array de experiências profissionais
+• <span class="highlight">skills</span> - Array de habilidades (sugeridas + personalizadas)
+• <span class="highlight">links</span> - GitHub, LinkedIn, Portfólio (opcionais)
+• <span class="highlight">certificates</span> - Array de certificados em base64
+• <span class="highlight">editorSettings</span> - Cores e tamanho de fonte
+• <span class="highlight">lastAccess</span> - Data/hora do último acesso
+• <span class="highlight">lastCurriculumUpdate</span> - Data/hora da última atualização
+            </pre>
+        </div>
+        
+        <h2>Paleta de Cores</h2>
+        
+        <div class="section">
+            <div class="grid">
+                <div class="card">
+                    <div style="background-color: #1a1a1a; width: 100%; height: 60px; border-radius: 3px; border: 1px solid #d4af37;"></div>
+                    <div class="card-title" style="font-size: 1rem;">Fundo Principal</div>
+                    <div class="card-description">#1a1a1a</div>
+                </div>
+                <div class="card">
+                    <div style="background-color: #2d2d2d; width: 100%; height: 60px; border-radius: 3px; border: 1px solid #d4af37;"></div>
+                    <div class="card-title" style="font-size: 1rem;">Fundo Secundário</div>
+                    <div class="card-description">#2d2d2d</div>
+                </div>
+                <div class="card">
+                    <div style="background-color: #d4af37; width: 100%; height: 60px; border-radius: 3px; border: 1px solid #d4af37;"></div>
+                    <div class="card-title" style="font-size: 1rem; color: #000;">Destaque (Ouro)</div>
+                    <div class="card-description">#d4af37</div>
+                </div>
+                <div class="card">
+                    <div style="background-color: #f5f5f5; width: 100%; height: 60px; border-radius: 3px; border: 1px solid #d4af37;"></div>
+                    <div class="card-title" style="font-size: 1rem; color: #1a1a1a;">Texto Principal</div>
+                    <div class="card-description" style="color: #1a1a1a;">#f5f5f5</div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Requisitos e Compatibilidade</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">Navegadores Suportados</div>
+                <div class="card-description">
+                    ✓ Chrome 60+ <br>
+                    ✓ Firefox 55+ <br>
+                    ✓ Safari 12+ <br>
+                    ✓ Edge 79+ <br>
+                    ✓ Opera 47+
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Requisitos Técnicos</div>
+                <div class="card-description">
+                    ✓ JavaScript habilitado <br>
+                    ✓ localStorage ativado <br>
+                    ✓ Resolução 320px+ (mobile) <br>
+                    ✓ Conexão para CDN (PDF)
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Dependências</div>
+                <div class="card-description">
+                    html2pdf.js (CDN - para exportação PDF) <br>
+                    Nenhuma outra dependência! <br>
+                    Código vanilla JavaScript
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <h2>Começar Agora</h2>
+            <p style="margin: 1rem 0;">Escolha uma das opções abaixo:</p>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 2rem 0;">
+                <a href="index.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.8rem 2rem;">
+                    ➤ Abrir Aplicação
+                </a>
+                <a href="TESTE_CARREGA.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.8rem 2rem;">
+                    ➤ Carregar Dados de Teste
+                </a>
+                <a href="FEATURES.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.8rem 2rem;">
+                    ➤ Ver Documentação
+                </a>
+            </div>
+            
+            <p style="color: #d4af37; margin-top: 3rem; font-style: italic;">
+                "Um anel para governar todos os anéis... de curriculos!"
+            </p>
+            
+            <p style="color: #c0c0c0; margin-top: 1rem; font-size: 0.9rem;">
+                <strong>Forja de Currículos v1.0</strong> <br>
+                Desenvolvido com HTML5, CSS3 puro e JavaScript <br>
+                Inspirado em O Senhor dos Anéis - J.R.R. Tolkien <br>
+                © 2026 - Todos os direitos reservados
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 TESTE - Rastrear Cliques nos Botões</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Georgia, serif; background: #000; color: #0f0; padding: 20px; }
+        .console { background: #000; border: 1px solid #0f0; padding: 20px; border-radius: 5px; font-family: monospace; max-height: 600px; overflow-y: auto; }
+        .console-line { margin: 2px 0; }
+        .error { color: #ff6b6b; }
+        .success { color: #7cf07c; }
+        .info { color: #0f0; }
+        button { background: #0f0; color: #000; border: none; padding: 10px 20px; font-weight: bold; border-radius: 3px; cursor: pointer; margin: 10px 5px 10px 0; }
+        h1 { color: #d4af37; }
+    </style>
+</head>
+<body>
+    <h1>🔍 RASTREADOR DE CLIQUES</h1>
+    <button onclick="testarTudo()">▶️ INICIAR TESTE</button>
+    <button onclick="document.querySelector('.console').innerHTML = ''">🗑️ Limpar Log</button>
+    <div class="console" id="log"></div>
+
+    <script>
+        function log(msg, type = 'info') {
+            const el = document.getElementById('log');
+            const div = document.createElement('div');
+            div.className = `console-line ${type}`;
+            div.textContent = msg;
+            el.appendChild(div);
+            el.scrollTop = el.scrollHeight;
+        }
+
+        function testarTudo() {
+            log('🚀 Iniciando teste...', 'success');
+            
+            // Criar iframe
+            const iframe = document.createElement('iframe');
+            iframe.src = 'index.html';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+
+            iframe.onload = () => {
+                log('✅ iframe carregado', 'success');
+                
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const iframeWin = iframe.contentWindow;
+
+                    // Interceptar o openModal original
+                    const originalOpenModal = iframeWin.openModal;
+                    iframeWin.openModal = function(modalId) {
+                        log(`🎯 openModal("${modalId}") foi chamado!`, 'success');
+                        return originalOpenModal.call(this, modalId);
+                    };
+
+                    // Interceptar o addSkill original
+                    const originalAddSkill = iframeWin.addSkill;
+                    iframeWin.addSkill = function() {
+                        log('🎯 addSkill() foi chamado!', 'success');
+                        return originalAddSkill.call(this);
+                    };
+
+                    // Procurar botões
+                    log('\n📍 Procurando botões...', 'info');
+                    const addEducationBtn = iframeDoc.getElementById('addEducationBtn');
+                    const addExperienceBtn = iframeDoc.getElementById('addExperienceBtn');
+                    const addSkillBtn = iframeDoc.getElementById('addSkillBtn');
+
+                    if (addEducationBtn) {
+                        log('✅ Botão addEducationBtn encontrado', 'success');
+                        log(`   - Visível: ${addEducationBtn.offsetWidth > 0 ? 'SIM' : 'NÃO'}`, 'info');
+                        log(`   - display: ${iframeWin.getComputedStyle(addEducationBtn).display}`, 'info');
+                        log(`   - pointer-events: ${iframeWin.getComputedStyle(addEducationBtn).pointerEvents}`, 'info');
+                        
+                        // Contar listeners
+                        log(`   - Procurando listeners...`, 'info');
+                        
+                        // Simular click
+                        setTimeout(() => {
+                            log('\n🖱️ Simulando clique no botão...', 'info');
+                            addEducationBtn.click();
+                            
+                            setTimeout(() => {
+                                const modal = iframeDoc.getElementById('educationModal');
+                                if (modal && modal.classList.contains('show')) {
+                                    log('✅✅✅ MODAL FOI ABERTO!', 'success');
+                                } else {
+                                    log('❌ Modal NÃO foi aberto', 'error');
+                                }
+                            }, 500);
+                        }, 1000);
+                    } else {
+                        log('❌ Botão addEducationBtn NÃO ENCONTRADO', 'error');
+                    }
+
+                    if (addExperienceBtn) {
+                        log('✅ Botão addExperienceBtn encontrado', 'success');
+                    } else {
+                        log('❌ Botão addExperienceBtn NÃO ENCONTRADO', 'error');
+                    }
+
+                    if (addSkillBtn) {
+                        log('✅ Botão addSkillBtn encontrado', 'success');
+                    } else {
+                        log('❌ Botão addSkillBtn NÃO ENCONTRADO', 'error');
+                    }
+
+                    // Verificar se setupEventListeners foi chamado
+                    log('\n🔌 Verificando event listeners...', 'info');
+                    const logs = [];
+                    const originalLog = iframeWin.console.log;
+                    
+                    iframeWin.console.log = function(...args) {
+                        const msg = args.join(' ');
+                        if (msg.includes('addEducationBtn') || msg.includes('addExperienceBtn') || msg.includes('addSkillBtn')) {
+                            log(`   ${msg}`, 'info');
+                        }
+                        return originalLog.apply(iframeWin.console, args);
+                    };
+
+                    // Agora fazer o teste propriamente dito
+                    log('\n💾 Preparando para teste com login...', 'info');
+                    log('Clique em "Abrir index.html Completo" abaixo para fazer login', 'info');
+
+                } catch (e) {
+                    log(`❌ Erro: ${e.message}`, 'error');
+                    log(e.stack, 'error');
+                }
+            };
+
+            iframe.onerror = () => {
+                log('❌ Erro ao carregar iframe', 'error');
+            };
+
+            setTimeout(() => {
+                const btn = document.createElement('button');
+                btn.textContent = '🚀 Abrir index.html Completo';
+                btn.onclick = () => window.location.href = 'index.html';
+                document.body.appendChild(btn);
+            }, 500);
+        }
+    </script>
+</body>
+</html>

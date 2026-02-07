@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>TESTE SIMPLES - JavaScript Funcionando?</title>
+    <style>
+        body { font-family: Arial; background: #333; color: #fff; padding: 40px; }
+        button { padding: 15px 30px; font-size: 16px; cursor: pointer; margin: 10px; }
+        .btn1 { background: green; color: white; }
+        .btn2 { background: blue; color: white; }
+        .result { margin: 20px; padding: 20px; background: #555; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🔧 TESTE SIMPLES - JavaScript Funcionando?</h1>
+    
+    <button class="btn1" id="btn1">BOTÃO 1 - Clique Aqui</button>
+    <button class="btn2" id="btn2">BOTÃO 2 - Clique Aqui</button>
+    
+    <div id="log" class="result">
+        <h3>Log de Eventos:</h3>
+        <div id="messages"></div>
+    </div>
+
+    <script>
+        function log(msg) {
+            const messagesDiv = document.getElementById('messages');
+            const line = document.createElement('div');
+            line.textContent = msg;
+            line.style.marginBottom = '10px';
+            line.style.padding = '10px';
+            line.style.background = '#333';
+            line.style.borderLeft = '3px solid yellow';
+            messagesDiv.appendChild(line);
+        }
+
+        // Teste 1: Verificar se este script está rodando
+        log('✅ Script carregado com sucesso!');
+
+        // Teste 2: Registrar evento no botão 1
+        const btn1 = document.getElementById('btn1');
+        if (btn1) {
+            log('✅ Botão 1 encontrado no DOM');
+            btn1.addEventListener('click', function() {
+                log('🔴 BOTÃO 1 CLICADO - JavaScript está funcionando!');
+            });
+            log('✅ Event listener registrado em Botão 1');
+        } else {
+            log('❌ Botão 1 NÃO encontrado');
+        }
+
+        // Teste 3: Registrar evento no botão 2
+        const btn2 = document.getElementById('btn2');
+        if (btn2) {
+            log('✅ Botão 2 encontrado no DOM');
+            btn2.addEventListener('click', function() {
+                log('🔵 BOTÃO 2 CLICADO - Listeners funcionam perfeitamente!');
+            });
+            log('✅ Event listener registrado em Botão 2');
+        } else {
+            log('❌ Botão 2 NÃO encontrado');
+        }
+
+        // Teste 4: Testar localStorage
+        try {
+            localStorage.setItem('test', 'ok');
+            log('✅ localStorage funcionando');
+        } catch (e) {
+            log('❌ localStorage com erro: ' + e.message);
+        }
+
+        log('');
+        log('📋 PRÓXIMO PASSO:');
+        log('Clique em um dos botões acima para testar se funciona');
+        log('Você deve ver a mensagem aparecer aqui');
+        log('');
+        log('SE OS BOTÕES FUNCIONAREM AQUI:');
+        log('└─ Significa que JavaScript está OK');
+        log('└─ O problema está especificamente em index.html');
+        log('');
+        log('SE OS BOTÕES NÃO FUNCIONAREM:');
+        log('└─ Significa que JavaScript está desabilitado no navegador');
+        log('└─ Ou há um problema grave no navegador');
+    </script>
+</body>
+</html>

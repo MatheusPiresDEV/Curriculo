@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TESTE ISOLADO - Adicionar Curso</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Georgia', serif;
+            background: #1a1a1a;
+            color: #f5f5f5;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { color: #d4af37; margin-bottom: 20px; }
+        .card { 
+            background: #2d2d2d;
+            border: 2px solid #d4af37;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        button {
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+        }
+        button:hover { background: #e8c547; }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #d4af37;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            background: #1a1a1a;
+            border: 1px solid #d4af37;
+            color: #f5f5f5;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.show {
+            display: flex;
+        }
+        .modal-content {
+            background: #2d2d2d;
+            border: 3px solid #d4af37;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+        .modal-content h2 { color: #d4af37; margin-bottom: 20px; }
+        .log {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #d4af37;
+        }
+        .log-line { margin: 5px 0; }
+        .success { color: #7cf07c; }
+        .error { color: #ff6b6b; }
+        .info { color: #87ceeb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 TESTE ISOLADO - Adicionar Curso</h1>
+
+        <div class="card">
+            <h2>O que este teste faz?</h2>
+            <p>Simula EXATAMENTE o que o index.html deveria fazer quando você clica em "+ Adicionar Curso".</p>
+            <p style="margin-top: 10px;">Se funcionar aqui, significa que o problema está em index.html.</p>
+            <p style="margin-top: 10px;">Se NÃO funcionar aqui, significa que JavaScript está com problemas.</p>
+        </div>
+
+        <div class="card">
+            <h2>Teste 1: Clique no Botão</h2>
+            <button onclick="testButton()">📖 Clique para Abrir Modal de Adicionar Curso</button>
+            <button onclick="clearLog()">🗑️ Limpar Log</button>
+        </div>
+
+        <div class="card">
+            <h2>Log de Execução:</h2>
+            <div id="log" class="log">
+                <div class="log-line info">✅ Página carregada - Pronta para teste</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para adicionar curso -->
+    <div id="educationModal" class="modal">
+        <div class="modal-content">
+            <h2>Adicionar Curso</h2>
+            <form id="educationForm">
+                <div class="form-group">
+                    <label for="courseName">Nome do Curso</label>
+                    <input type="text" id="courseName" required>
+                </div>
+                <div class="form-group">
+                    <label for="institution">Instituição</label>
+                    <input type="text" id="institution" required>
+                </div>
+                <div class="form-group">
+                    <label for="startMonth">Início (Mês/Ano)</label>
+                    <input type="month" id="startMonth" required>
+                </div>
+                <div class="form-group">
+                    <label for="duration">Duração (em meses)</label>
+                    <input type="number" id="duration" required min="1">
+                </div>
+                <button type="submit">💾 Salvar Curso</button>
+                <button type="button" onclick="closeModal()">❌ Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const logDiv = document.getElementById('log');
+
+        function log(message, type = 'info') {
+            const line = document.createElement('div');
+            line.className = `log-line ${type}`;
+            
+            if (type === 'success') {
+                line.textContent = '✅ ' + message;
+            } else if (type === 'error') {
+                line.textContent = '❌ ' + message;
+            } else {
+                line.textContent = 'ℹ️ ' + message;
+            }
+            
+            logDiv.appendChild(line);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function clearLog() {
+            logDiv.innerHTML = '<div class="log-line info">✅ Log limpo</div>';
+        }
+
+        function testButton() {
+            log('Botão clicado!', 'success');
+            log('Procurando elemento com id "educationModal"...', 'info');
+            
+            const modal = document.getElementById('educationModal');
+            
+            if (modal) {
+                log('✅ Modal encontrado!', 'success');
+                log('Adicionando classe "show"...', 'info');
+                modal.classList.add('show');
+                log('✅ Modal exibido com sucesso!', 'success');
+                
+                // Registrar event listener no formulário
+                const form = document.getElementById('educationForm');
+                if (form && !form.dataset.listenerAdded) {
+                    form.addEventListener('submit', handleFormSubmit);
+                    form.dataset.listenerAdded = 'true';
+                    log('✅ Event listener do formulário registrado', 'success');
+                }
+            } else {
+                log('❌ Modal NÃO encontrado!', 'error');
+                log('Procure por <div id="educationModal"> no HTML', 'error');
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('educationModal');
+            modal.classList.remove('show');
+            log('Modal fechado', 'info');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            log('Formulário enviado!', 'success');
+            
+            const courseName = document.getElementById('courseName').value;
+            const institution = document.getElementById('institution').value;
+            const startMonth = document.getElementById('startMonth').value;
+            const duration = document.getElementById('duration').value;
+            
+            log(`Curso: ${courseName}`, 'success');
+            log(`Instituição: ${institution}`, 'success');
+            log(`Início: ${startMonth}`, 'success');
+            log(`Duração: ${duration} meses`, 'success');
+            
+            // Salvar em localStorage
+            try {
+                const courses = JSON.parse(localStorage.getItem('courses') || '[]');
+                courses.push({
+                    id: Date.now(),
+                    courseName,
+                    institution,
+                    startMonth,
+                    duration: parseInt(duration)
+                });
+                localStorage.setItem('courses', JSON.stringify(courses));
+                log('✅ Curso salvo em localStorage!', 'success');
+                log(`Total de cursos: ${courses.length}`, 'success');
+                
+                // Limpar formulário
+                document.getElementById('educationForm').reset();
+                log('Formulário limpo', 'info');
+                
+                // Fechar modal
+                closeModal();
+                log('Modal fechado automaticamente', 'info');
+            } catch (error) {
+                log(`❌ Erro ao salvar: ${error.message}`, 'error');
+            }
+        }
+
+        // Teste inicial
+        window.addEventListener('load', () => {
+            log('Verificando elementos do DOM...', 'info');
+            
+            const modal = document.getElementById('educationModal');
+            const form = document.getElementById('educationForm');
+            const btn = document.querySelector('button:nth-child(1)');
+            
+            if (modal && form && btn) {
+                log('✅ Todos os elementos encontrados!', 'success');
+                log('Clique no botão "Clique para Abrir Modal" para testar', 'success');
+            } else {
+                log('❌ Alguns elementos não foram encontrados', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

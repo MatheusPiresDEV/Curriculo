@@ -1,0 +1,196 @@
+📋 DIAGNÓSTICO - BOTÕES NÃO FUNCIONAM
+═══════════════════════════════════════════════════════════════════════════════
+
+Se você ainda não consegue adicionar Formação, Experiência ou Skills, 
+siga EXATAMENTE esses passos:
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔧 PASSO 1: Verificar se os arquivos estão completos
+
+1. Na pasta c:\Users\mathe\Desktop\Curriculo
+2. Verifique se existem esses arquivos:
+   ✅ index.html (18-19 KB)
+   ✅ styles.css (17 KB)
+   ✅ script.js (34+ KB)
+
+3. Se faltarem ou estiverem muito pequenos (<10 KB), copie novamente
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔧 PASSO 2: Limpar cache do navegador
+
+1. Abra o navegador
+2. Pressione Ctrl + Shift + Del
+3. Marque:
+   ✅ Cookies
+   ✅ Cache
+   ✅ Dados de site
+4. Clique "Limpar dados"
+5. Feche o navegador COMPLETAMENTE
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔧 PASSO 3: Reabrir o arquivo
+
+1. Vá para c:\Users\mathe\Desktop\Curriculo
+2. Clique duplo em index.html
+3. Espere carregar completamente (5 segundos)
+4. IMPORTANTE: NÃO clique em nada ainda
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔧 PASSO 4: Abrir Console (OBRIGATÓRIO)
+
+1. Pressione F12 (ou Ctrl + Shift + I)
+2. Vá para a aba "Console" (não "Elements" ou "Network")
+3. Você deve ver mensagens como:
+
+   ✅ DOMContentLoaded - Inicializando aplicação...
+   🔌 Registrando event listeners...
+   📑 Encontrados 8 botões de tab
+   ✅ addEducationBtn listener
+   ✅ addExperienceBtn listener
+   ✅ addSkillBtn listener
+   ✅ Todos os event listeners registrados com sucesso
+
+4. Se não ver essas mensagens:
+   └─ PARE e avise, há um problema grave
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔧 PASSO 5: Fazer Login
+
+1. No campo "Nome Completo", digite: João Silva
+2. No campo "Data de Nascimento", clique e escolha uma data
+3. No campo "E-mail", digite: joao@email.com
+4. Clique em "Entrar na Forja"
+5. NO CONSOLE você deve ver:
+
+   🔐 handleLogin() - Tentando fazer login...
+   📝 Dados: João Silva, 1990-01-01, joao@email.com
+   💾 Salvando usuário em localStorage...
+   ✅ Usuário salvo com sucesso
+   📺 Mostrando tela principal...
+   ✅ showMainScreen() concluído com sucesso
+
+6. A TELA deve mudar para mostrar as abas (Painel, Dados Pessoais, Formação, etc)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔧 PASSO 6: Testar Adicionar Curso
+
+1. Clique na aba "Formação"
+2. Procure por botão "+ Adicionar Curso"
+3. NO CONSOLE você deve ver:
+   ⚠️ Se vir "🎓 Clique em Adicionar Curso" = FUNCIONANDO
+   ❌ Se não vir nada = PROBLEMA
+
+4. Se vir a mensagem, clique no botão
+5. Um modal (caixa de diálogo) deve aparecer
+
+═══════════════════════════════════════════════════════════════════════════════
+
+❓ SE NÃO FUNCIONAR - Diagnóstico:
+
+PROBLEMA 1: Não vejo "DOMContentLoaded" no console
+├─ Causa: JavaScript não está carregando
+├─ Solução:
+│  1. Feche COMPLETAMENTE o navegador
+│  2. Espere 10 segundos
+│  3. Reabra index.html
+│  4. Imediatamente abra Console (F12)
+
+PROBLEMA 2: Vejo "DOMContentLoaded" mas não vejo listeners registrados
+├─ Causa: setupEventListeners() teve erro
+├─ Procure por:
+│  ❌ Mensagens em VERMELHO
+│  ⚠️ Mensagens em AMARELO
+├─ Solução:
+│  1. Copie a mensagem de erro
+│  2. Leia MUDANCAS-v2.1.txt para diagnóstico
+
+PROBLEMA 3: Login não funciona (fico na tela de login)
+├─ Causa: handleLogin() não está registrado
+├─ No console, não vejo "🔐 handleLogin()"
+├─ Solução:
+│  1. Leia CORRECAO-LOGIN.txt
+│  2. Feche e reabra navegador
+
+PROBLEMA 4: Login funciona, vejo abas, mas botão "+Adicionar" não abre modal
+├─ Causa: Listeners não estão registrados
+├─ No console, não vejo "🎓 Clique em Adicionar Curso"
+├─ Procure por "⚠️ addEducationBtn NÃO ENCONTRADO"
+├─ Solução:
+│  1. Limpe cache (Ctrl + Shift + Del)
+│  2. Feche navegador COMPLETAMENTE
+│  3. Reabra index.html
+
+PROBLEMA 5: Vejo modal, preencho dados, mas não salva
+├─ Causa: handleEducationSubmit() não está funcionando
+├─ No console, não vejo "✅ Curso salvo"
+├─ Solução:
+│  1. Procure por erros em VERMELHO
+│  2. Verifique localStorage (F12 → Application → localStorage)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ CHECKLIST COMPLETO:
+
+□ Arquivo index.html tem mais de 18 KB
+□ Arquivo script.js tem mais de 34 KB
+□ Arquivo styles.css tem mais de 17 KB
+□ Cache do navegador foi limpo (Ctrl + Shift + Del)
+□ Navegador foi fechado COMPLETAMENTE
+□ Abri index.html novamente
+□ Abri Console imediatamente (F12)
+□ Vejo "DOMContentLoaded" no console
+□ Vejo "addEducationBtn listener" no console
+□ Faço login com sucesso
+□ Vejo tela principal com abas
+□ Clico em aba "Formação"
+□ Vejo "🎓 Clique em Adicionar Curso" no console
+□ Modal abre ao clicar "+ Adicionar Curso"
+□ Preenchido: Nome do Curso
+□ Preenchido: Instituição
+□ Preenchido: Início (mês/ano)
+□ Preenchido: Duração (em meses)
+□ Clico "Salvar Curso"
+□ Vejo "✅ Curso salvo!" no console
+□ Curso aparece na lista abaixo
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🆘 ÚLTIMO RECURSO - Resetar Tudo:
+
+Se nada acima funcionou:
+
+1. Feche o navegador COMPLETAMENTE
+2. Vá para c:\Users\mathe\Desktop\Curriculo
+3. Clique direito em index.html
+4. Clique "Propriedades"
+5. Marque "Desbloquear"
+6. Clique OK
+7. Feche tudo
+8. Espere 30 segundos
+9. Abra index.html novamente
+10. Limpe cache (Ctrl + Shift + Del)
+11. Recarregue (F5)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📞 Se ainda não funcionar:
+
+1. Copie TODO O TEXTO do Console (F12)
+2. Procure por mensagens em VERMELHO ou AMARELO
+3. Leia os arquivos:
+   ├─ SOLUCAO-RAPIDA.txt
+   ├─ DEBUG-INSTRUCOES.txt
+   ├─ MUDANCAS-v2.1.txt
+   └─ CORRECAO-LOGIN.txt
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Versão: 2.1.1
+Data: 6 de fevereiro de 2026
+Última atualização: Corrigido login e removidos erros de sintaxe

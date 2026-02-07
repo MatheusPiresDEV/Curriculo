@@ -1,0 +1,147 @@
+🆘 INSTRUÇÕES - TESTAR SE OS BOTÕES FUNCIONAM
+═══════════════════════════════════════════════════════════════════════════════
+
+Se você ainda não consegue adicionar Formação, Experiência ou Skills,
+siga EXATAMENTE essas instruções em ORDEM:
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ TESTE 1 - Verificar se JavaScript está funcionando
+
+1. Abra o arquivo: TESTE-BOTAO.html
+2. Você deve ver 2 botões verdes e azuis
+3. Clique em qualquer botão
+4. Você deve ver uma mensagem aparecer na página
+
+RESULTADO:
+├─ ✅ SE OS BOTÕES FUNCIONAREM
+│  └─ JavaScript está OK, vá para TESTE 2
+│
+└─ ❌ SE OS BOTÕES NÃO RESPONDEREM
+   └─ JavaScript está desabilitado no navegador
+   └─ Procure em Configurações → Privacidade → JavaScript ✅ ativar
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ TESTE 2 - Testar Adicionar Curso Isolado
+
+1. Abra o arquivo: TESTE-ADICIONAR-CURSO.html
+2. Clique no botão "📖 Clique para Abrir Modal de Adicionar Curso"
+3. Um formulário (modal) deve aparecer na tela
+4. Preencha:
+   - Nome do Curso: "JavaScript"
+   - Instituição: "Udemy"
+   - Início: escolha um mês/ano
+   - Duração: 3 (meses)
+5. Clique "💾 Salvar Curso"
+6. Você deve ver mensagens no Log informando sucesso
+
+RESULTADO:
+├─ ✅ SE FUNCIONAR
+│  └─ Problema está especificamente em index.html
+│  └─ Vá para TESTE 3
+│
+└─ ❌ SE NÃO FUNCIONAR
+   └─ Há um problema geral em JavaScript
+   └─ Tente:
+      1. Fechar navegador COMPLETAMENTE
+      2. Esperar 10 segundos
+      3. Reabrir o arquivo
+      4. Se não funcionar: Trocar navegador (Chrome, Edge, Firefox)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ TESTE 3 - Verificar Elementos em index.html
+
+1. Abra arquivo: VERIFICAR-BOTOES.html
+2. Clique em "1️⃣ Verificar Elementos HTML"
+3. Você deve ver se os botões existem em index.html
+
+RESULTADO:
+├─ ✅ SE TODOS OS ELEMENTOS FOREM ENCONTRADOS
+│  └─ Botões existem, problema é em Event Listeners
+│  └─ Vá para TESTE 4
+│
+└─ ❌ SE ALGUM ELEMENTO "NÃO FOR ENCONTRADO"
+   └─ HTML está corrompido
+   └─ Solução: Copiar novamente o arquivo index.html
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ TESTE 4 - Debug Completo em index.html
+
+1. Abra index.html normalmente
+2. Imediatamente pressione F12 (abrir Console)
+3. Procure por mensagens como:
+
+   ✅ DOMContentLoaded - Inicializando aplicação...
+   🔌 Registrando event listeners...
+   📑 Encontrados 8 botões de tab
+   ✅ addEducationBtn listener
+   
+4. Se vir essas mensagens:
+   └─ Faça login com qualquer nome
+   └─ Vá para aba "Formação"
+   └─ Procure por mais mensagens
+
+5. Se vir algo como:
+   ⚠️ addEducationBtn NÃO ENCONTRADO
+   └─ Significa que o HTML não carregou corretamente
+   └─ Solução: Limpar cache (Ctrl + Shift + Del) e reabrir
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎯 RESUMO DOS TESTES:
+
+TESTE 1: TESTE-BOTAO.html
+├─ Verifica se JavaScript está funcionando no navegador
+└─ Deve levar 30 segundos
+
+TESTE 2: TESTE-ADICIONAR-CURSO.html
+├─ Testa especificamente a função de adicionar curso
+└─ Deve levar 1 minuto
+
+TESTE 3: VERIFICAR-BOTOES.html
+├─ Verifica se os elementos HTML existem
+└─ Deve levar 30 segundos
+
+TESTE 4: index.html + Console
+├─ Debug completo da aplicação real
+└─ Deve levar 3-5 minutos
+
+═══════════════════════════════════════════════════════════════════════════════
+
+❌ SE NENHUM TESTE FUNCIONAR:
+
+1. Verifique se está usando um navegador moderno:
+   ✅ Chrome (versão 60+)
+   ✅ Firefox (versão 55+)
+   ✅ Edge (versão 79+)
+   ✅ Safari (versão 12+)
+   ❌ Internet Explorer (NÃO funciona)
+
+2. Se está usando Internet Explorer, troque para Chrome
+
+3. Tente em outro navegador:
+   └─ Baixar Chrome em google.com/chrome
+   └─ Instalar
+   └─ Abrir novamente os testes
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📋 CHECKLIST ANTES DE COMEÇAR:
+
+□ Tenho a pasta: c:\Users\mathe\Desktop\Curriculo
+□ Pasta tem arquivos: index.html, styles.css, script.js
+□ Arquivo index.html tem mais de 18 KB
+□ Arquivo script.js tem mais de 34 KB
+□ Estou usando Chrome, Firefox ou Edge (NÃO Explorer)
+□ JavaScript está ativado no navegador
+□ Estou pronto para começar os testes
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Versão: 2.1.1
+Data: 6 de fevereiro de 2026
+
+BOA SORTE! 🍀

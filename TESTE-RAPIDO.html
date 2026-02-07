@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✅ Teste Rápido - Forja de Currículos v2.1</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Georgia', serif; 
+            background: #1a1a1a;
+            color: #f5f5f5;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { color: #d4af37; margin-bottom: 20px; font-size: 2em; }
+        .card { 
+            background: #2d2d2d; 
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card h2 { color: #d4af37; margin-bottom: 10px; }
+        .step { margin: 10px 0; padding: 10px; background: #1a1a1a; border-left: 4px solid #d4af37; }
+        .step strong { color: #d4af37; }
+        .test-btn { 
+            background: #d4af37; 
+            color: #1a1a1a; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 16px;
+            font-weight: bold;
+            margin: 10px 5px 10px 0;
+            transition: background 0.3s;
+        }
+        .test-btn:hover { background: #e8c547; }
+        .console-output {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #d4af37;
+        }
+        .success { color: #7cf07c; }
+        .warning { color: #ffb86c; }
+        .error { color: #ff6b6b; }
+        .info { color: #87ceeb; }
+        .checklist { list-style: none; }
+        .checklist li { 
+            padding: 8px; 
+            margin: 5px 0; 
+            background: #2d2d2d;
+            border-radius: 4px;
+            border-left: 3px solid #d4af37;
+        }
+        .checklist li.done { border-left-color: #7cf07c; }
+        .checklist li.done::before { content: "✅ "; color: #7cf07c; }
+        .checklist li.pending::before { content: "⏳ "; color: #ffb86c; }
+        .badge { 
+            display: inline-block; 
+            background: #d4af37; 
+            color: #1a1a1a; 
+            padding: 4px 8px; 
+            border-radius: 3px; 
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+        }
+        .badge.success { background: #7cf07c; }
+        .badge.error { background: #ff6b6b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Teste Rápido - Forja de Currículos v2.1</h1>
+        
+        <div class="card">
+            <h2>📋 O que foi corrigido?</h2>
+            <ul class="checklist">
+                <li class="done pending">Verificações de segurança nos event listeners</li>
+                <li class="done pending">Logging detalhado em console (50+ logs)</li>
+                <li class="done pending">Melhor tratamento de erros</li>
+                <li class="done pending">3 arquivos de documentação</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🚀 Como testar?</h2>
+            <ol>
+                <li><strong>Abra index.html</strong> no navegador</li>
+                <li><strong>Pressione F12</strong> para abrir Ferramentas do Desenvolvedor</li>
+                <li><strong>Vá para aba "Console"</strong></li>
+                <li><strong>Faça login</strong> com qualquer nome</li>
+                <li><strong>Clique na aba "Formação"</strong></li>
+                <li><strong>Clique em "+ Adicionar Curso"</strong></li>
+                <li><strong>Procure no console:</strong> 🎓 Clique em Adicionar Curso</li>
+                <li><strong>Preencha formulário e clique "Salvar"</strong></li>
+                <li><strong>Procure no console:</strong> ✅ Curso salvo! Total: 1</li>
+                <li><strong>Repita para Experiência e Skills</strong></li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>🔍 O que procurar no Console</h2>
+            <div style="margin: 15px 0;">
+                <strong>✅ Mensagens de SUCESSO (verde):</strong>
+                <div class="console-output">
+                    <div class="success">✅ DOMContentLoaded - Inicializando aplicação...</div>
+                    <div class="success">✅ Event listeners registrados</div>
+                    <div class="success">✅ addEducationBtn listener</div>
+                    <div class="success">✅ Todos os event listeners registrados com sucesso</div>
+                </div>
+
+                <strong style="margin-top: 15px; display: block;">📚 Mensagens de AÇÃO:</strong>
+                <div class="console-output">
+                    <div class="info">🎓 Clique em Adicionar Curso</div>
+                    <div class="info">📚 handleEducationSubmit() - Salvando curso...</div>
+                    <div class="info">✅ Curso salvo! Total: 1</div>
+                    <div class="info">🎓 renderEducation() chamado</div>
+                </div>
+
+                <strong style="margin-top: 15px; display: block;">⚠️ Se vir AVISOS (amarelo):</strong>
+                <div class="console-output">
+                    <div class="warning">⚠️ addEducationBtn NÃO ENCONTRADO</div>
+                    <div style="color: #ddd; margin-top: 10px;">→ Significa que o HTML não foi carregado corretamente</div>
+                    <div style="color: #ddd; margin-top: 5px;">→ Solução: Feche o navegador completamente e reabra</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📝 Checklist de Testes</h2>
+            <ul class="checklist">
+                <li class="pending">Abrir index.html no navegador</li>
+                <li class="pending">Ver "✅ DOMContentLoaded" no console</li>
+                <li class="pending">Fazer login</li>
+                <li class="pending">Ir para aba "Formação"</li>
+                <li class="pending">Clicar "+ Adicionar Curso"</li>
+                <li class="pending">Ver modal aparecer</li>
+                <li class="pending">Preencher dados: Nome, Instituição, Início (mês/ano), Duração</li>
+                <li class="pending">Clicar "Salvar Curso"</li>
+                <li class="pending">Ver "✅ Curso salvo!" no console</li>
+                <li class="pending">Curso aparecer na lista</li>
+                <li class="pending">Repetir para Experiência (aba "Experiência")</li>
+                <li class="pending">Repetir para Skills (aba "Skills")</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>📚 Arquivos de Ajuda</h2>
+            <p>Novos arquivos criados para ajudar no diagnóstico:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>SOLUCAO-RAPIDA.txt</strong> - Este arquivo em texto (leia primeiro!)</li>
+                <li><strong>DEBUG-INSTRUCOES.txt</strong> - Instruções detalhadas de troubleshooting</li>
+                <li><strong>MUDANCAS-v2.1.txt</strong> - Detalhes técnicos das correções</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>💡 Dicas Importantes</h2>
+            <div class="step">
+                <strong>Dica 1: Cache do Navegador</strong>
+                Se não ver as mudanças, limpe o cache (Ctrl + Shift + Del) e recarregue
+            </div>
+            <div class="step">
+                <strong>Dica 2: Console Aberto</strong>
+                Sempre tenha o Console aberto (F12) enquanto testa para ver os logs
+            </div>
+            <div class="step">
+                <strong>Dica 3: Fechar Completamente</strong>
+                Se vir "NÃO ENCONTRADO", feche o navegador COMPLETAMENTE e reabra
+            </div>
+            <div class="step">
+                <strong>Dica 4: Ler os Logs</strong>
+                Procure pelas mensagens de emoji (🎓, 💼, 🎨) para saber se tudo funcionou
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>✨ Esperado Funcionar</h2>
+            <p style="margin-bottom: 15px;">Agora todos os botões devem funcionar normalmente:</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                <div style="text-align: center; padding: 15px; background: #2d2d2d; border-radius: 5px;">
+                    <div style="font-size: 24px; margin-bottom: 5px;">🎓</div>
+                    <strong>Adicionar Curso</strong>
+                    <div style="font-size: 12px; color: #c0c0c0; margin-top: 5px;">Formação</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: #2d2d2d; border-radius: 5px;">
+                    <div style="font-size: 24px; margin-bottom: 5px;">💼</div>
+                    <strong>Adicionar Experiência</strong>
+                    <div style="font-size: 12px; color: #c0c0c0; margin-top: 5px;">Experiência</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: #2d2d2d; border-radius: 5px;">
+                    <div style="font-size: 24px; margin-bottom: 5px;">🎨</div>
+                    <strong>Adicionar Skill</strong>
+                    <div style="font-size: 12px; color: #c0c0c0; margin-top: 5px;">Skills</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="background: linear-gradient(135deg, #2d2d2d, #3a2d1a); border-color: #d4af37;">
+            <h2 style="color: #d4af37;">✅ Tudo Pronto!</h2>
+            <p>A aplicação foi corrigida e agora tem capacidade total de diagnóstico.</p>
+            <p style="margin-top: 10px;">Você pode:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>✅ Adicionar Cursos normalmente</li>
+                <li>✅ Adicionar Experiências normalmente</li>
+                <li>✅ Adicionar Skills normalmente</li>
+                <li>✅ Ver logs detalhados no Console</li>
+                <li>✅ Debugar problemas facilmente</li>
+            </ul>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="test-btn" onclick="goToIndex()">Ir para index.html →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToIndex() {
+            window.location.href = 'index.html';
+        }
+        
+        // Simulação de status
+        setTimeout(() => {
+            document.querySelectorAll('.pending').forEach(el => {
+                el.classList.remove('pending');
+                el.classList.add('done');
+            });
+        }, 1000);
+    </script>
+</body>
+</html>

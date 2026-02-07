@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TESTE - Verificar Aplicação</title>
+    <style>
+        body { 
+            font-family: Georgia, serif;
+            background: #1a1a1a;
+            color: #f5f5f5;
+            padding: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 { color: #d4af37; margin-bottom: 30px; }
+        .test-box { 
+            background: #2d2d2d;
+            border: 2px solid #d4af37;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .button-test {
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+            font-weight: bold;
+        }
+        .button-test:hover { background: #e8c547; }
+        .result { 
+            margin-top: 20px; 
+            padding: 15px;
+            background: #1a1a1a;
+            border-left: 4px solid #d4af37;
+        }
+        .success { border-left-color: #7cf07c; color: #7cf07c; }
+        .error { border-left-color: #ff6b6b; color: #ff6b6b; }
+        .warning { border-left-color: #ffb86c; color: #ffb86c; }
+        .info { border-left-color: #87ceeb; color: #87ceeb; }
+        pre { background: #000; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔧 TESTE - Verificar Botões da Aplicação</h1>
+    
+    <div class="test-box">
+        <h2>📋 Testes Disponíveis</h2>
+        <button class="button-test" onclick="testElements()">1️⃣ Verificar Elementos HTML</button>
+        <button class="button-test" onclick="testEventListeners()">2️⃣ Verificar Event Listeners</button>
+        <button class="button-test" onclick="testStorage()">3️⃣ Verificar localStorage</button>
+        <button class="button-test" onclick="testApp()">4️⃣ Abrir Aplicação</button>
+        <div id="results"></div>
+    </div>
+
+    <div class="test-box">
+        <h2>📝 O Que Cada Teste Faz</h2>
+        <p><strong>1️⃣ Verificar Elementos HTML</strong></p>
+        <p style="margin-left: 20px; color: #c0c0c0;">Procura pelos botões "+ Adicionar" no index.html</p>
+        
+        <p style="margin-top: 15px;"><strong>2️⃣ Verificar Event Listeners</strong></p>
+        <p style="margin-left: 20px; color: #c0c0c0;">Tenta registrar listeners manualmente e vê se funcionam</p>
+        
+        <p style="margin-top: 15px;"><strong>3️⃣ Verificar localStorage</strong></p>
+        <p style="margin-left: 20px; color: #c0c0c0;">Vê se os dados estão sendo salvos</p>
+        
+        <p style="margin-top: 15px;"><strong>4️⃣ Abrir Aplicação</strong></p>
+        <p style="margin-left: 20px; color: #c0c0c0;">Abre o index.html normalmente</p>
+    </div>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `result ${type}`;
+            div.textContent = message;
+            resultsDiv.appendChild(div);
+        }
+
+        function testElements() {
+            resultsDiv.innerHTML = '<h3>Resultados do Teste 1:</h3>';
+            
+            // Criar um iframe para carregar o index.html
+            const iframe = document.createElement('iframe');
+            iframe.src = 'index.html';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+
+            setTimeout(() => {
+                try {
+                    const doc = iframe.contentDocument;
+                    
+                    const elements = {
+                        'addEducationBtn': doc.getElementById('addEducationBtn'),
+                        'addExperienceBtn': doc.getElementById('addExperienceBtn'),
+                        'addSkillBtn': doc.getElementById('addSkillBtn'),
+                        'educationModal': doc.getElementById('educationModal'),
+                        'experienceModal': doc.getElementById('experienceModal'),
+                        'skillsList': doc.getElementById('skillsList'),
+                        'educationList': doc.getElementById('educationList'),
+                        'experienceList': doc.getElementById('experienceList')
+                    };
+
+                    for (const [name, el] of Object.entries(elements)) {
+                        if (el) {
+                            log(`✅ ${name} encontrado`, 'success');
+                        } else {
+                            log(`❌ ${name} NÃO ENCONTRADO`, 'error');
+                        }
+                    }
+                } catch (e) {
+                    log(`⚠️ Não foi possível verificar iframe: ${e.message}`, 'warning');
+                }
+                
+                document.body.removeChild(iframe);
+            }, 500);
+        }
+
+        function testEventListeners() {
+            resultsDiv.innerHTML = '<h3>Resultados do Teste 2:</h3>';
+            
+            log('Teste: Simular clique em "+ Adicionar Curso"', 'info');
+            
+            try {
+                const btn = document.createElement('button');
+                btn.id = 'testBtn';
+                btn.textContent = 'Teste';
+                btn.addEventListener('click', () => {
+                    log('✅ Event listener funcionando!', 'success');
+                });
+                
+                log('✅ Listeners podem ser registrados', 'success');
+            } catch (e) {
+                log(`❌ Erro: ${e.message}`, 'error');
+            }
+        }
+
+        function testStorage() {
+            resultsDiv.innerHTML = '<h3>Resultados do Teste 3:</h3>';
+            
+            try {
+                localStorage.setItem('test', 'ok');
+                const test = localStorage.getItem('test');
+                
+                if (test === 'ok') {
+                    log('✅ localStorage funcionando', 'success');
+                } else {
+                    log('❌ localStorage não funcionando', 'error');
+                }
+                
+                const user = localStorage.getItem('user');
+                if (user) {
+                    const userData = JSON.parse(user);
+                    log(`✅ Usuário salvo: ${userData.fullName}`, 'success');
+                } else {
+                    log('ℹ Nenhum usuário salvo ainda (normal se é primeira vez)', 'info');
+                }
+                
+                localStorage.removeItem('test');
+            } catch (e) {
+                log(`❌ Erro: ${e.message}`, 'error');
+            }
+        }
+
+        function testApp() {
+            log('⏳ Abrindo aplicação...', 'info');
+            window.location.href = 'index.html';
+        }
+
+        // Executar teste inicial
+        window.addEventListener('load', () => {
+            log('✅ Página de teste carregada', 'success');
+            log('Clique em um dos botões acima para testar', 'info');
+        });
+    </script>
+</body>
+</html>

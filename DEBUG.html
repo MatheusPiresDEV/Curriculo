@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>DEBUG - Forja de Currículos</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #1a1a1a; color: #f5f5f5; }
+        h1 { color: #d4af37; }
+        .status { padding: 10px; margin: 10px 0; border: 1px solid #d4af37; border-radius: 5px; }
+        .success { background: #1a3a1a; color: #7cf07c; }
+        .error { background: #3a1a1a; color: #ff6b6b; }
+        .warning { background: #3a2a1a; color: #ffb86c; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; background: #d4af37; color: #000; border: none; border-radius: 5px; }
+        button:hover { background: #e8c547; }
+    </style>
+</head>
+<body>
+    <h1>🔍 DEBUG - Forja de Currículos</h1>
+    
+    <div id="results"></div>
+    
+    <button onclick="testElements()">Testar Elementos</button>
+    <button onclick="testStorage()">Testar Storage</button>
+    <button onclick="testFunctions()">Testar Funções</button>
+    <button onclick="openApp()">Abrir Aplicação</button>
+    
+    <script>
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `<strong>[${type.toUpperCase()}]</strong> ${message}`;
+            results.appendChild(div);
+            console.log(`[${type.toUpperCase()}]`, message);
+        }
+        
+        function testElements() {
+            document.getElementById('results').innerHTML = '<h2>Testando Elementos...</h2>';
+            
+            const elements = [
+                'loginForm', 'mainScreen', 'educationList', 'experienceList', 
+                'skillsList', 'addEducationBtn', 'addExperienceBtn', 'addSkillBtn',
+                'educationModal', 'experienceModal', 'skillsInput'
+            ];
+            
+            elements.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    log(`✅ Encontrado: #${id}`, 'success');
+                } else {
+                    log(`❌ NÃO ENCONTRADO: #${id}`, 'error');
+                }
+            });
+        }
+        
+        function testStorage() {
+            document.getElementById('results').innerHTML = '<h2>Testando Storage...</h2>';
+            
+            try {
+                localStorage.setItem('test', 'ok');
+                log('✅ localStorage disponível', 'success');
+                
+                const user = localStorage.getItem('user');
+                if (user) {
+                    log(`✅ Usuário encontrado: ${JSON.parse(user).fullName}`, 'success');
+                } else {
+                    log('ℹ Nenhum usuário cadastrado ainda', 'warning');
+                }
+                
+                const education = localStorage.getItem('education');
+                if (education) {
+                    const edus = JSON.parse(education);
+                    log(`✅ Educação encontrada: ${edus.length} cursos`, 'success');
+                } else {
+                    log('ℹ Nenhum curso adicionado', 'warning');
+                }
+                
+                const skills = localStorage.getItem('skills');
+                if (skills) {
+                    const skls = JSON.parse(skills);
+                    log(`✅ Skills encontradas: ${skls.length} skills`, 'success');
+                } else {
+                    log('ℹ Nenhuma skill adicionada', 'warning');
+                }
+            } catch (e) {
+                log(`❌ Erro: ${e.message}`, 'error');
+            }
+        }
+        
+        function testFunctions() {
+            document.getElementById('results').innerHTML = '<h2>Testando Funções...</h2>';
+            
+            // Verificar se o script foi carregado
+            if (typeof addSkill !== 'undefined') {
+                log('✅ Função addSkill existe', 'success');
+            } else {
+                log('❌ Função addSkill NÃO existe', 'error');
+            }
+            
+            if (typeof openModal !== 'undefined') {
+                log('✅ Função openModal existe', 'success');
+            } else {
+                log('❌ Função openModal NÃO existe', 'error');
+            }
+            
+            if (typeof renderEducation !== 'undefined') {
+                log('✅ Função renderEducation existe', 'success');
+            } else {
+                log('❌ Função renderEducation NÃO existe', 'error');
+            }
+        }
+        
+        function openApp() {
+            window.location.href = 'index.html';
+        }
+        
+        // Executar teste de elementos quando carregar
+        window.addEventListener('load', () => {
+            log('📄 Página de DEBUG carregada', 'success');
+        });
+    </script>
+</body>
+</html>

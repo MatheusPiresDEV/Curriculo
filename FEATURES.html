@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Features - Forja de Currículos</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.8;
+        }
+        
+        h1 {
+            color: #d4af37;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 3rem;
+        }
+        
+        h2 {
+            color: #e8c547;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-box {
+            background-color: #2d2d2d;
+            border-left: 4px solid #d4af37;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+        
+        .feature-title {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-description {
+            color: #c0c0c0;
+            margin-bottom: 0.8rem;
+        }
+        
+        .code-block {
+            background-color: #1a1a1a;
+            border: 1px solid #d4af37;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+        
+        .highlight {
+            color: #d4af37;
+        }
+        
+        .warning {
+            background-color: #3d2820;
+            border-left-color: #8b4513;
+            color: #f5a623;
+        }
+        
+        .success {
+            background-color: #2d3d2d;
+            border-left-color: #6ba86b;
+            color: #a8d5a8;
+        }
+        
+        ul, ol {
+            margin: 1rem 0;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+            color: #e8c547;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            border: 1px solid #d4af37;
+            padding: 0.8rem;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #2d2d2d;
+            color: #d4af37;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Forja de Currículos - Guia Completo de Features</h1>
+    
+    <h2>1. Sistema de Autenticação e Login</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Login Local (sem autenticação externa)</div>
+        <div class="feature-description">
+            O sistema mantém todos os dados do usuário exclusivamente no localStorage do navegador. 
+            Nenhuma informação é enviada a servidores externos.
+        </div>
+        <div class="code-block">
+// Dados armazenados em localStorage
+{
+  "user": {
+    "fullName": "João Silva",
+    "birthDate": "1990-01-15",
+    "email": "joao@example.com",
+    "phone": "(11) 98765-4321",
+    "address": "Rua A, 123, São Paulo",
+    "createdAt": "2026-02-06T22:45:00.000Z"
+  }
+}
+        </div>
+    </div>
+    
+    <div class="feature-box">
+        <div class="feature-title">Toca dos Hobbits - Design da Tela de Login</div>
+        <div class="feature-description">
+            A tela de login é inspirada na toca dos Hobbits com:
+        </div>
+        <ul>
+            <li>Decoração visual em forma de portal redondo</li>
+            <li>Gradiente de cores medievais</li>
+            <li>Animação de fundo com padrão de diamantes</li>
+            <li>Bordas douradas ornamentadas</li>
+        </ul>
+    </div>
+    
+    <div class="feature-box">
+        <div class="feature-title">Easter Eggs</div>
+        <div class="feature-description">
+            A tela de login contém surpresas para usuários atentos:
+        </div>
+        <ol>
+            <li><strong>Clique na frase "Um anel para governar..."</strong>
+                <br>Ativa uma sequência de 5 diálogos dos anéis do Senhor dos Anéis
+            </li>
+            <li><strong>Konami Code:</strong> ↑ ↑ ↓ ↓ ← → ← → B A
+                <br>Ativa o "Modo Escuro do Anel" com efeito visual especial
+            </li>
+        </ol>
+    </div>
+    
+    <h2>2. Gerenciamento de Dados Pessoais</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Campos Editáveis</div>
+        <div class="feature-description">
+            Na aba "Dados Pessoais", o usuário pode gerenciar:
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Campo</th>
+                    <th>Tipo</th>
+                    <th>Obrigatório</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nome Completo</td>
+                    <td>Texto</td>
+                    <td>Sim</td>
+                </tr>
+                <tr>
+                    <td>Data de Nascimento</td>
+                    <td>Data</td>
+                    <td>Sim</td>
+                </tr>
+                <tr>
+                    <td>E-mail</td>
+                    <td>Email</td>
+                    <td>Sim</td>
+                </tr>
+                <tr>
+                    <td>Telefone</td>
+                    <td>Tel</td>
+                    <td>Não</td>
+                </tr>
+                <tr>
+                    <td>Endereço</td>
+                    <td>Texto</td>
+                    <td>Não</td>
+                </tr>
+                <tr>
+                    <td>Título Profissional</td>
+                    <td>Texto</td>
+                    <td>Não</td>
+                </tr>
+                <tr>
+                    <td>Sobre Mim</td>
+                    <td>TextArea</td>
+                    <td>Não</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <h2>3. Sistema de Formação Acadêmica</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Cálculos Automáticos para Cursos</div>
+        <div class="feature-description">
+            O sistema calcula automaticamente informações sobre cursos não finalizados:
+        </div>
+        <ul>
+            <li><strong>Previsão de Término:</strong> Calculada a partir da data de início + duração</li>
+            <li><strong>Tempo Restante:</strong> Em meses, até a previsão de término</li>
+            <li><strong>Porcentagem Concluída:</strong> Com barra visual de progresso</li>
+        </ul>
+    </div>
+    
+    <div class="feature-box">
+        <div class="feature-title">Exemplo de Cálculo</div>
+        <div class="code-block">
+Entrada:
+- Curso: Engenharia de Software
+- Instituição: Universidade XYZ
+- Início: Fevereiro/2022
+- Duração: 48 meses
+
+Cálculo:
+- Data de término: Fevereiro/2026
+- Se hoje é: Fevereiro/2026
+- Meses restantes: 0 (Concluído)
+- Progresso: 100%
+        </div>
+    </div>
+    
+    <div class="feature-box">
+        <div class="feature-title">Exibição no Currículo</div>
+        <div class="feature-description">
+            - <strong>Se concluído:</strong> Mostra apenas "Concluído"
+            <br>- <strong>Se em andamento:</strong> Mostra "Previsão de término: Mês/Ano | X meses restantes | Y% concluído"
+            <br>- <strong>No site:</strong> Todos os cálculos detalhados são visíveis
+            <br>- <strong>No PDF:</strong> Apenas previsão de término aparece
+        </div>
+    </div>
+    
+    <h2>4. Experiência Profissional</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Campos de Experiência</div>
+        <div class="feature-description">
+            Cada entrada de experiência contém:
+        </div>
+        <ul>
+            <li>Cargo/Posição</li>
+            <li>Nome da Empresa</li>
+            <li>Mês/Ano de Entrada</li>
+            <li>Mês/Ano de Saída (ou "Atual")</li>
+            <li>Descrição de Atividades (opcional)</li>
+        </ul>
+    </div>
+    
+    <div class="feature-box">
+        <div class="feature-title">Marcação de Trabalho Atual</div>
+        <div class="feature-description">
+            Ao marcar "Trabalho atual", o campo de data de saída é automaticamente desabilitado
+            e o currículo exibe "Atual" em vez da data.
+        </div>
+    </div>
+    
+    <h2>5. Sistema de Skills (Habilidades)</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Lista Suspensa com 40+ Sugestões</div>
+        <div class="feature-description">
+            O sistema contém sugestões pré-carregadas de skills:
+        </div>
+        <div class="code-block">
+LINGUAGENS:
+JavaScript, TypeScript, Python, Java, C, C++, PHP, Go, Rust
+
+WEB:
+HTML, CSS, React, Angular, Vue, Node.js, Express
+
+BANCO DE DADOS:
+MySQL, PostgreSQL, MongoDB, Redis
+
+FERRAMENTAS:
+GitHub, Docker, Kubernetes, Power BI, Excel
+
+SOFT SKILLS:
+Proatividade, Colaboração, Comunicação, 
+Resolução de problemas, Liderança, Criatividade
+        </div>
+    </div>
+    
+    <div class="feature-box">
+        <div class="feature-title">Escrita Livre de Skills</div>
+        <div class="feature-description">
+            Além das sugestões, o usuário pode digitar qualquer skill personalizada
+            que não esteja na lista pré-carregada.
+        </div>
+    </div>
+    
+    <h2>6. Sistema de Links Opcionais</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Links Suportados</div>
+        <ul>
+            <li>GitHub - Perfil do desenvolvedor</li>
+            <li>LinkedIn - Rede profissional</li>
+            <li>Portfólio - Site pessoal ou portfólio</li>
+        </ul>
+        <div class="feature-description">
+            Todos os links são completamente opcionais. Se não preenchidos, não aparecem no currículo.
+        </div>
+    </div>
+    
+    <h2>7. Sistema de Certificados</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Upload e Armazenamento</div>
+        <div class="feature-description">
+            Certificados podem ser em formato:
+        </div>
+        <ul>
+            <li>PDF</li>
+            <li>JPEG/JPG</li>
+            <li>PNG</li>
+            <li>GIF</li>
+        </ul>
+    </div>
+    
+    <div class="feature-box">
+        <div class="feature-title">Armazenamento Base64</div>
+        <div class="feature-description">
+            Os certificados são convertidos para base64 e salvos no localStorage,
+            permitindo que sejam visualizados e baixados sem acesso ao arquivo original.
+        </div>
+    </div>
+    
+    <div class="feature-box">
+        <div class="feature-title">Funcionalidades de Certificados</div>
+        <ul>
+            <li>Visualizar arquivo original</li>
+            <li>Fazer download do certificado</li>
+            <li>Deletar certificado do sistema</li>
+            <li>Link para página de certificados no currículo</li>
+        </ul>
+    </div>
+    
+    <h2>8. Editor de Currículo</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Personalização de Cores</div>
+        <ul>
+            <li><strong>Cor de Fundo:</strong> Define fundo do currículo</li>
+            <li><strong>Cor do Texto:</strong> Define cor principal do texto</li>
+            <li><strong>Cor de Destaque:</strong> Define cor dos títulos e bordas</li>
+        </ul>
+    </div>
+    
+    <div class="feature-box">
+        <div class="feature-title">Ajuste de Tamanho</div>
+        <div class="feature-description">
+            Slider para ajustar o tamanho da fonte entre 12px e 24px.
+        </div>
+    </div>
+    
+    <div class="feature-box">
+        <div class="feature-title">Visualização em Tempo Real</div>
+        <div class="feature-description">
+            Todas as mudanças são aplicadas instantaneamente ao currículo exibido,
+            permitindo que o usuário veja o resultado antes de exportar.
+        </div>
+    </div>
+    
+    <div class="feature-box success">
+        <div class="feature-title">Resetar Padrões</div>
+        <div class="feature-description">
+            Botão para voltar às cores e tamanhos padrão (tema medieval com ouro).
+        </div>
+    </div>
+    
+    <h2>9. Visualização em Tempo Real do Currículo</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Currículo Sempre Visível</div>
+        <div class="feature-description">
+            O currículo é exibido em tempo real à medida que o usuário preenche os dados:
+        </div>
+        <ul>
+            <li>Digitando o nome → atualiza imediatamente no currículo</li>
+            <li>Adicionando experiência → aparece na seção correspondente</li>
+            <li>Preenchendo formação → mostra previsão de término ou status</li>
+            <li>Adicionando skills → atualiza lista de habilidades</li>
+        </ul>
+    </div>
+    
+    <div class="feature-box">
+        <div class="feature-title">Estrutura Padrão do Currículo</div>
+        <div class="code-block">
+[CABEÇALHO]
+- Nome
+- Título Profissional
+- Contato (Email, Telefone, Endereço, Nascimento)
+
+[SEÇÕES]
+- Sobre Mim
+- Experiência Profissional
+- Formação Acadêmica
+- Habilidades
+- Links
+- Certificados
+        </div>
+    </div>
+    
+    <h2>10. Exportação em PDF</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Download Automático</div>
+        <div class="feature-description">
+            Ao clicar em "Exportar PDF", o currículo é baixado com:
+        </div>
+        <ul>
+            <li>Nome do arquivo: curriculo_[nome do usuário].pdf</li>
+            <li>Todas as personalizações de cores e tamanho</li>
+            <li>Formatting preservado</li>
+            <li>Formato A4 em retrato</li>
+        </ul>
+    </div>
+    
+    <div class="feature-box warning">
+        <div class="feature-title">Nota sobre Exportação</div>
+        <div class="feature-description">
+            O botão "Exportar PDF" fica desabilitado até que o usuário tenha
+            pelo menos uma entrada de educação ou experiência cadastrada.
+        </div>
+    </div>
+    
+    <h2>11. Armazenamento em localStorage</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Dados Armazenados</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Chave</th>
+                    <th>Conteúdo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>user</td>
+                    <td>Dados pessoais do usuário</td>
+                </tr>
+                <tr>
+                    <td>education</td>
+                    <td>Array de cursos</td>
+                </tr>
+                <tr>
+                    <td>experience</td>
+                    <td>Array de experiências</td>
+                </tr>
+                <tr>
+                    <td>skills</td>
+                    <td>Array de skills</td>
+                </tr>
+                <tr>
+                    <td>links</td>
+                    <td>Objeto com GitHub, LinkedIn, Portfólio</td>
+                </tr>
+                <tr>
+                    <td>certificates</td>
+                    <td>Array de certificados (base64)</td>
+                </tr>
+                <tr>
+                    <td>editorSettings</td>
+                    <td>Cores e tamanho de fonte</td>
+                </tr>
+                <tr>
+                    <td>lastAccess</td>
+                    <td>Data/hora do último acesso</td>
+                </tr>
+                <tr>
+                    <td>lastCurriculumUpdate</td>
+                    <td>Data/hora da última atualização</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <h2>12. Dashboard com Estatísticas</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Informações Exibidas</div>
+        <ul>
+            <li><strong>Última Visita:</strong> Data e hora do último acesso</li>
+            <li><strong>Última Atualização:</strong> Quantos dias desde a última alteração do currículo</li>
+            <li><strong>Status do Currículo:</strong> Se existe currículo criado ou não</li>
+        </ul>
+    </div>
+    
+    <h2>13. Layout Mobile First</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Pontos de Quebra Responsivos</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Resolução</th>
+                    <th>Comportamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>&lt; 480px</td>
+                    <td>Mobile otimizado, layout de coluna única</td>
+                </tr>
+                <tr>
+                    <td>480px - 768px</td>
+                    <td>Tablet, layout flexível</td>
+                </tr>
+                <tr>
+                    <td>&gt; 768px</td>
+                    <td>Desktop, visualização lateral do currículo</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <h2>14. Design Temático - Terra Média</h2>
+    
+    <div class="feature-box">
+        <div class="feature-title">Elementos Visuais</div>
+        <ul>
+            <li>Paleta de cores medieval (preto + ouro)</li>
+            <li>Tipografia serif (Georgia)</li>
+            <li>Sem emojis (conforme solicitado)</li>
+            <li>Ícones ornamentados com bordas douradas</li>
+            <li>Efeitos de sombra e brilho</li>
+        </ul>
+    </div>
+    
+    <h2>Instruções Complementares</h2>
+    
+    <div class="feature-box success">
+        <div class="feature-title">Para Usuários Novos</div>
+        <ol>
+            <li>Acesse <span class="highlight">index.html</span></li>
+            <li>Preencha seus dados de cadastro ou clique "Pular Tudo"</li>
+            <li>Comece preenchendo as abas na ordem desejada</li>
+            <li>Visualize as mudanças em tempo real no currículo</li>
+            <li>Quando satisfeito, exporte para PDF</li>
+        </ol>
+    </div>
+    
+    <div class="feature-box success">
+        <div class="feature-title">Para Usuários Retornantes</div>
+        <ol>
+            <li>Os dados são automaticamente carregados do localStorage</li>
+            <li>Você pode editar qualquer seção</li>
+            <li>As alterações são salvas automaticamente</li>
+            <li>Exporte PDF quando quiser uma cópia atualizada</li>
+        </ol>
+    </div>
+    
+    <hr style="border-color: #d4af37; margin: 3rem 0;">
+    
+    <p style="text-align: center; color: #c0c0c0;">
+        <strong>Forja de Currículos v1.0</strong><br>
+        Desenvolvido com HTML, CSS puro e JavaScript<br>
+        Inspirado em O Senhor dos Anéis - J.R.R. Tolkien
+    </p>
+</body>
+</html>
