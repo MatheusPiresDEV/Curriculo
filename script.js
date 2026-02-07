@@ -70,7 +70,8 @@ const StorageManager = {
             bgColor: '#ffffff',
             textColor: '#000000',
             accentColor: '#0b66d6',
-            fontSize: '12'
+            fontSize: '12',
+            fontFamily: 'Arial'
         };
     },
     
@@ -396,7 +397,8 @@ function showMainScreen() {
         bgColor: '#ffffff',
         textColor: '#000000',
         accentColor: '#0b66d6',
-        fontSize: '12'
+        fontSize: '12',
+        fontFamily: 'Arial'
     };
     try {
         StorageManager.saveEditorSettings(forcedSettings);
@@ -880,19 +882,20 @@ function deleteSkill(skillName) {
     renderSkills();
 }
 
-// ==================== LINKS ==================== 
-function handleLinksForm(e) {
-    e.preventDefault();
-    
-    const links = {
-        github: document.getElementById('githubLink').value,
-        linkedin: document.getElementById('linkedinLink').value,
-        portfolio: document.getElementById('portfolioLink').value
-    };
-    
-    StorageManager.saveLinks(links);
-    showAlert('Links salvos com sucesso!');
-}
+    // ==================== LINKS ====================
+    function handleLinksForm(e) {
+        e.preventDefault();
+
+        const links = {
+            github: document.getElementById('githubLink').value,
+            linkedin: document.getElementById('linkedinLink').value,
+            portfolio: document.getElementById('portfolioLink').value
+        };
+
+        StorageManager.saveLinks(links);
+        showAlert('Links salvos com sucesso!');
+    }
+
 
 // ==================== CERTIFICADOS ==================== 
 function handleAddCertificate() {
@@ -1017,13 +1020,15 @@ function resetEditor() {
         bgColor: '#1a1a1a',
         textColor: '#f5f5f5',
         accentColor: '#d4af37',
-        fontSize: '16'
+        fontSize: '16',
+        fontFamily: 'Arial'
     };
     
     document.getElementById('bgColor').value = defaultSettings.bgColor;
     document.getElementById('textColor').value = defaultSettings.textColor;
     document.getElementById('accentColor').value = defaultSettings.accentColor;
     document.getElementById('fontSize').value = defaultSettings.fontSize;
+    document.getElementById('fontFamily').value = defaultSettings.fontFamily;
     
     StorageManager.saveEditorSettings(defaultSettings);
     applyEditorSettings(defaultSettings);
@@ -1044,12 +1049,16 @@ function updateCurriculumPreview() {
     if (user?.professionalTitle) html += `<div class="curriculum-title">${user.professionalTitle}</div>`;
     // contato em linhas separadas na ordem solicitada
     let contactHtml = '';
-    if (user?.email) contactHtml += `<div class="contact-line">E-mail: <a href="mailto:${user.email}" target="_blank">${user.email}</a></div>`;
-    // links (GitHub, LinkedIn, Portfolio) preferem dados do objeto links
-    if (links?.github) contactHtml += `<div class="contact-line">GitHub: <a href="${links.github}" target="_blank">${links.github}</a></div>`;
-    if (links?.linkedin) contactHtml += `<div class="contact-line">LinkedIn: <a href="${links.linkedin}" target="_blank">${links.linkedin}</a></div>`;
-    if (links?.portfolio) contactHtml += `<div class="contact-line">Portfolio: <a href="${links.portfolio}" target="_blank">${links.portfolio}</a></div>`;
-    if (user?.phone) contactHtml += `<div class="contact-line">Telefone: <a href="tel:${user.phone.replace(/\s+/g,'')}">${user.phone}</a></div>`;
+    if (user?.email) contactHtml += `<div class="contact-line">E-mail: <a href="mailto:${user.email}" class="email-link">${user.email}</a></div>`;
+    if (user?.phone) {
+        const cleanPhone = user.phone.replace(/\D/g, '');
+        const whatsappNumber = cleanPhone.startsWith('55') ? cleanPhone : '55' + cleanPhone;
+        contactHtml += `<div class="contact-line">Telefone: <a href="https://wa.me/${whatsappNumber}" target="_blank" class="phone-link">${user.phone}</a></div>`;
+    }
+    // links hardcoded
+    contactHtml += `<div class="contact-line">GitHub: <a href="https://github.com/MatheusPiresDEV" target="_blank" class="social-link">https://github.com/MatheusPiresDEV</a></div>`;
+    contactHtml += `<div class="contact-line">LinkedIn: <a href="https://www.linkedin.com/in/matheusgustavopires/" target="_blank" class="social-link">https://www.linkedin.com/in/matheusgustavopires/</a></div>`;
+    contactHtml += `<div class="contact-line">Portfolio: <a href="https://matheuspiresdev.github.io/Portfolioo/" target="_blank" class="social-link">https://matheuspiresdev.github.io/Portfolioo/</a></div>`;
     if (user?.address) contactHtml += `<div class="contact-line">Endereço: ${user.address}</div>`;
     if (user?.birthDate) contactHtml += `<div class="contact-line">Data de Nascimento: ${new Date(user.birthDate).toLocaleDateString('pt-BR')}</div>`;
     if (contactHtml) html += `<div class="curriculum-contact">${contactHtml}</div>`;
@@ -1184,78 +1193,134 @@ function switchToTab(tabName) {
     if (content) content.classList.add('active');
 }
 
-// ==================== EXPORTAR PDF ==================== 
+// ==================== EXPORTAR PDF ====================
 function exportPDF() {
     const user = StorageManager.getUser();
-    if (!user) return;
+    if (!user) {
+        createToast('Usuário não encontrado. Faça login primeiro.', 'error');
+        return;
+    }
 
     const elem = document.getElementById('curriculum');
-    if (!elem) return;
-
-    // Clonar elemento para capturar sem alterar UI
-    const clone = elem.cloneNode(true);
-    clone.style.background = window.getComputedStyle(elem).backgroundColor || '#fff';
-    clone.style.padding = '10mm';
-    clone.style.width = '180mm';
-
-    // Anexar temporariamente ao body fora da visualização
-    clone.style.position = 'fixed';
-    clone.style.left = '-9999px';
-    document.body.appendChild(clone);
-
-    // Verificar bibliotecas carregadas (compatibilidade com UMD e globals)
-    const html2canvasFn = window.html2canvas || (typeof html2canvas !== 'undefined' && html2canvas);
-    const jsPDFClass = window.jsPDF || (window.jspdf && window.jspdf.jsPDF) || (typeof jsPDF !== 'undefined' && jsPDF);
-
-    if (!html2canvasFn) {
-        console.error('html2canvas não encontrado');
-        showAlert('Erro: biblioteca html2canvas não carregada. Verifique sua conexão ou recarregue a página.');
-        try { document.body.removeChild(clone); } catch(e){}
-        return;
-    }
-    if (!jsPDFClass) {
-        console.error('jsPDF não encontrado');
-        showAlert('Erro: biblioteca jsPDF não carregada. Verifique sua conexão ou recarregue a página.');
-        try { document.body.removeChild(clone); } catch(e){}
+    if (!elem) {
+        createToast('Elemento do currículo não encontrado.', 'error');
         return;
     }
 
-    // Converter para canvas e criar PDF como UMA SÓ PÁGINA escalada para caber
-    html2canvasFn(clone, { scale: 2 }).then(canvas => {
-        try {
-            const imgData = canvas.toDataURL('image/jpeg', 1.0);
-            // conversão px -> mm (assumindo 96dpi)
-            const pxToMm = 0.2645833333;
-            const imgWidthMm = canvas.width * pxToMm;
-            const imgHeightMm = canvas.height * pxToMm;
-            const pdf = new jsPDFClass('p', 'mm', 'a4');
-            const pageWidth = pdf.internal.pageSize.getWidth();
-            const pageHeight = pdf.internal.pageSize.getHeight();
-            const margin = 10; // mm
-            const maxWidth = pageWidth - margin * 2;
-            const maxHeight = pageHeight - margin * 2;
+    // Mostrar indicador de carregamento
+    const exportBtn = document.getElementById('exportPdfBtn');
+    const originalText = exportBtn.textContent;
+    exportBtn.textContent = 'Gerando PDF...';
+    exportBtn.disabled = true;
 
-            const scale = Math.min(maxWidth / imgWidthMm, maxHeight / imgHeightMm, 1);
-            const finalWidth = imgWidthMm * scale;
-            const finalHeight = imgHeightMm * scale;
-            const x = (pageWidth - finalWidth) / 2;
-            const y = (pageHeight - finalHeight) / 2;
-
-            pdf.addImage(imgData, 'JPEG', x, y, finalWidth, finalHeight);
-            const filename = `curriculo_${(user.fullName || 'sem_nome').replace(/\s/g, '_')}.pdf`;
-            pdf.save(filename);
-        } catch (err) {
-            console.error('Erro ao gerar PDF:', err);
-            showAlert('Erro ao gerar PDF. Veja console para detalhes.');
-        } finally {
-            document.body.removeChild(clone);
+    try {
+        // Verificar bibliotecas
+        if (!window.html2canvas) {
+            throw new Error('html2canvas não carregado');
         }
-    }).catch(err => {
-        console.error('html2canvas erro:', err);
-        showAlert('Erro ao gerar imagem para PDF. Veja console para detalhes.');
-        try { document.body.removeChild(clone); } catch(e){}
-    });
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+            throw new Error('jsPDF não carregado');
+        }
+
+        const { jsPDF } = window.jspdf;
+        
+        // Coletar informações dos links ANTES de converter
+        const links = elem.querySelectorAll('a');
+        const linkPositions = [];
+        
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && href.length > 0) {
+                const rect = link.getBoundingClientRect();
+                const elemRect = elem.getBoundingClientRect();
+                
+                linkPositions.push({
+                    url: href,
+                    x: rect.left - elemRect.left,
+                    y: rect.top - elemRect.top,
+                    width: rect.width,
+                    height: rect.height
+                });
+            }
+        });
+        
+        console.log('📍 Links encontrados:', linkPositions);
+        
+        // Usar html2canvas para converter o elemento em imagem
+        html2canvas(elem, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff'
+        }).then(canvas => {
+            try {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                
+                // Calcular escala
+                const imgWidth = pdfWidth - 20;
+                const scale = imgWidth / elem.offsetWidth;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                // Adicionar imagem na página
+                pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+                
+                // Adicionar links usando as coordenadas calculadas
+                linkPositions.forEach(linkInfo => {
+                    const pdfX = linkInfo.x * scale + 10;
+                    const pdfY = linkInfo.y * scale + 10;
+                    const pdfWidth = Math.max(linkInfo.width * scale, 2);
+                    const pdfHeight = Math.max(linkInfo.height * scale, 2);
+                    
+                    console.log(`🔗 Adicionando link: ${linkInfo.url} em (${pdfX}, ${pdfY})`);
+                    
+                    try {
+                        // Método simples: criar um link direto com URL
+                        // pdf.link() cria uma área clicável que pode apontar para URL externa
+                        pdf.link(pdfX, pdfY, pdfWidth, pdfHeight, { url: linkInfo.url });
+                        console.log(`✅ Link adicionado com sucesso`);
+                    } catch(e) {
+                        console.warn('⚠️ Erro ao adicionar link:', linkInfo.url, e);
+                        // Fallback: tentar com createLink
+                        try {
+                            const linkObj = pdf.createLink();
+                            pdf.link(pdfX, pdfY, pdfWidth, pdfHeight, linkObj);
+                            console.log(`✅ Link fallback adicionado`);
+                        } catch(e2) {
+                            console.warn('❌ Falha no fallback:', e2);
+                        }
+                    }
+                });
+                
+                // Salvar PDF em uma única página
+                const filename = `curriculo_${(user.fullName || 'sem_nome').replace(/\s/g, '_')}.pdf`;
+                pdf.save(filename);
+                console.log('✅ PDF gerado com sucesso em uma página com links funcionais');
+                createToast('✅ PDF gerado! Clique nos links azuis para abrir.', 'success');
+            } catch (err) {
+                console.error('❌ Erro ao gerar PDF:', err);
+                createToast('Erro ao gerar PDF: ' + err.message, 'error');
+            } finally {
+                exportBtn.textContent = originalText;
+                exportBtn.disabled = false;
+            }
+        }).catch(err => {
+            console.error('❌ Erro ao converter para imagem:', err);
+            createToast('Erro ao converter currículo: ' + err.message, 'error');
+            exportBtn.textContent = originalText;
+            exportBtn.disabled = false;
+        });
+    } catch (err) {
+        console.error('❌ Erro ao exportar PDF:', err);
+        createToast('Erro: ' + err.message, 'error');
+        exportBtn.textContent = originalText;
+        exportBtn.disabled = false;
+    }
 }
+
 
 // ==================== UTILITÁRIOS ==================== 
 function switchTab(e) {
