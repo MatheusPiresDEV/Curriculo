@@ -944,7 +944,7 @@ input::placeholder {
         font-size: 0.85rem;
     }
 
-    /* Garantir que o currículo mantenha tamanho fixo em PDF mesmo no mobile */
+    /* Responsive display para mobile */
     .curriculum-preview {
         display: block;
         width: 100%;
@@ -955,11 +955,9 @@ input::placeholder {
     }
 
     .curriculum-document {
-        width: 210mm !important;
+        width: 100%;
         padding: 15mm;
-        transform: scale(0.5);
-        transform-origin: top center;
-        margin-bottom: 105mm;
+        font-size: 10px;
     }
 
     .curriculum-name {

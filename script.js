@@ -1250,10 +1250,11 @@ function exportPDF() {
         // Garantir largura consistente do elemento para captura
         const originalWidth = elem.style.width;
         const originalMinWidth = elem.style.minWidth;
-        const originalTransform = elem.style.transform;
+        const originalMaxWidth = elem.style.maxWidth;
+        
         elem.style.width = '210mm';
         elem.style.minWidth = '210mm';
-        elem.style.transform = 'scale(1)';
+        elem.style.maxWidth = '210mm';
         
         html2canvas(elem, {
             scale: 2,
@@ -1267,7 +1268,7 @@ function exportPDF() {
                 // Restaurar estilo original
                 elem.style.width = originalWidth;
                 elem.style.minWidth = originalMinWidth;
-                elem.style.transform = originalTransform;
+                elem.style.maxWidth = originalMaxWidth;
                 
                 const imgData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF('p', 'mm', 'a4');
