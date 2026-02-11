@@ -1246,9 +1246,15 @@ function exportPDF() {
         
         console.log('📍 Links encontrados:', linkPositions);
         
+        // Determinar scale baseado no tamanho da tela
+        // Mobile: scale 1 para não ficar muito grande
+        // Desktop: scale 2 para melhor qualidade
+        const isMobile = window.innerWidth <= 768;
+        const canvasScale = isMobile ? 0.75 : 2;
+        
         // Usar html2canvas para converter o elemento em imagem
         html2canvas(elem, {
-            scale: 2,
+            scale: canvasScale,
             useCORS: true,
             logging: false,
             backgroundColor: '#ffffff',
@@ -1270,8 +1276,10 @@ function exportPDF() {
                 // Calcular tamanho da imagem para caber na página A4
                 const margin = 10;
                 const maxWidth = pdfWidth - (margin * 2);
-                const scale = maxWidth / (canvas.width / 2);
-                const imgHeight = (canvas.height / 2) * scale;
+                const scale = maxWidth / (canvas.width / canvasScale);
+                const imgHeight = (canvas.height / canvasScale) * scale;
+                
+                console.log(`📊 Canvas: ${canvas.width}x${canvas.height}, Scale: ${canvasScale}, Altura PDF: ${imgHeight}mm, Altura página: ${pdfHeight}mm`);
                 
                 // Se a altura exceder a página, fazer múltiplas páginas
                 let yPosition = margin;
