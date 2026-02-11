@@ -739,6 +739,7 @@ input::placeholder {
 }
 
 /* ==================== CURRÍCULO (VISUALIZAÇÃO) ==================== */
+/* ==================== CURRÍCULO (VISUALIZAÇÃO) ==================== */
 .curriculum-preview {
     position: relative;
     width: 100%;
@@ -756,6 +757,8 @@ input::placeholder {
     min-height: auto;
     box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
     margin: 0 auto;
+    width: 210mm;
+    box-sizing: border-box;
 }
 
 .curriculum-document a {
@@ -809,34 +812,6 @@ input::placeholder {
     font-size: 11px;
 }
 
-/* ==================== CHECKBOX ==================== */
-.form-group.checkbox {
-    flex-direction: row;
-    align-items: center;
-}
-
-.form-group.checkbox input {
-    width: auto;
-    cursor: pointer;
-}
-
-.form-group.checkbox label {
-    margin: 0;
-}
-
-/* ==================== EASTER EGGS ==================== */
-.easter-egg-zone {
-    text-align: center;
-    margin-top: 2rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-
-.small-text {
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
 .small-text:hover {
     color: var(--gold);
     text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
@@ -878,11 +853,6 @@ input::placeholder {
         grid-template-columns: 1fr;
     }
 
-    .curriculum-preview.show {
-        width: 100%;
-        position: absolute;
-    }
-
     .main-container {
         padding: 0;
     }
@@ -890,6 +860,12 @@ input::placeholder {
     .form-section {
         border-radius: 5px;
         padding: 1.5rem 1rem;
+    }
+    
+    .curriculum-preview {
+        display: block;
+        width: 100%;
+        max-width: none;
     }
 }
 
@@ -966,6 +942,40 @@ input::placeholder {
     .skill-badge {
         padding: 0.5rem 0.8rem;
         font-size: 0.85rem;
+    }
+
+    /* Garantir que o currículo mantenha tamanho fixo em PDF mesmo no mobile */
+    .curriculum-preview {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+    }
+
+    .curriculum-document {
+        width: 210mm !important;
+        padding: 15mm;
+        transform: scale(0.5);
+        transform-origin: top center;
+        margin-bottom: 105mm;
+    }
+
+    .curriculum-name {
+        font-size: 16px;
+    }
+
+    .curriculum-title {
+        font-size: 12px;
+    }
+
+    .curriculum-contact {
+        font-size: 10px;
+    }
+
+    .curriculum-entry {
+        font-size: 10px;
     }
 }
 

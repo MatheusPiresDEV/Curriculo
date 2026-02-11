@@ -1247,22 +1247,38 @@ function exportPDF() {
         console.log('📍 Links encontrados:', linkPositions);
         
         // Usar html2canvas para converter o elemento em imagem
+        // Garantir largura consistente do elemento para captura
+        const originalWidth = elem.style.width;
+        const originalMinWidth = elem.style.minWidth;
+        const originalTransform = elem.style.transform;
+        elem.style.width = '210mm';
+        elem.style.minWidth = '210mm';
+        elem.style.transform = 'scale(1)';
+        
         html2canvas(elem, {
             scale: 2,
             useCORS: true,
             logging: false,
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff',
+            allowTaint: true,
+            foreignObjectRendering: true
         }).then(canvas => {
             try {
+                // Restaurar estilo original
+                elem.style.width = originalWidth;
+                elem.style.minWidth = originalMinWidth;
+                elem.style.transform = originalTransform;
+                
                 const imgData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 
                 const pdfWidth = pdf.internal.pageSize.getWidth();
                 const pdfHeight = pdf.internal.pageSize.getHeight();
                 
-                // Calcular escala
+                // Calcular escala - usar 210mm como largura padrão A4
                 const imgWidth = pdfWidth - 20;
-                const scale = imgWidth / elem.offsetWidth;
+                const docWidth = 210;
+                const scale = imgWidth / docWidth;
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
                 
                 // Adicionar imagem na página
