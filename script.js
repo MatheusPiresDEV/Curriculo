@@ -1195,6 +1195,15 @@ function switchToTab(tabName) {
 
 // ==================== EXPORTAR PDF ====================
 function exportPDF() {
+    // Definir dimensões A4 para calcular scale
+    const pdfWidth = 210;
+    const pdfHeight = 297;
+    const topMargin = 5;
+    const bottomMargin = 5;
+    const sideMargin = 5;
+    const availableHeight = pdfHeight - topMargin - bottomMargin;
+    const availableWidth = pdfWidth - (sideMargin * 2);
+
     const user = StorageManager.getUser();
     if (!user) {
         createToast('Usuário não encontrado. Faça login primeiro.', 'error');
@@ -1223,17 +1232,17 @@ function exportPDF() {
         }
 
         const { jsPDF } = window.jspdf;
-        
+
         // Coletar informações dos links ANTES de converter
         const links = elem.querySelectorAll('a');
         const linkPositions = [];
-        
+
         links.forEach(link => {
             const href = link.getAttribute('href');
             if (href && href.length > 0) {
                 const rect = link.getBoundingClientRect();
                 const elemRect = elem.getBoundingClientRect();
-                
+
                 linkPositions.push({
                     url: href,
                     x: rect.left - elemRect.left,
@@ -1243,98 +1252,81 @@ function exportPDF() {
                 });
             }
         });
-        
+
         console.log('📍 Links encontrados:', linkPositions);
-        
-        // Determinar scale baseado no tamanho da tela
-        // Mobile: scale reduzida
-        // Desktop: scale normal
-        const isMobile = window.innerWidth <= 768;
-        let canvasScale = isMobile ? 1 : 1.5;
-        
+
+        // Forçar largura fixa para layout idêntico
+        const originalWidth = elem.style.width;
+        elem.style.width = '756px'; // Largura que cabe em A4 com margens
+
+        // Definir dimensões do elemento
+        const elemWidth = elem.scrollWidth;
+        const elemHeight = elem.scrollHeight;
+
+        // Usar scale fixo igual ao desktop para manter aparência consistente
+        const canvasScale = 1.5;
+
         // Usar html2canvas para converter o elemento em imagem
         html2canvas(elem, {
             scale: canvasScale,
             useCORS: true,
             logging: false,
-            backgroundColor: '#ffffff',
             allowTaint: true,
-            width: elem.scrollWidth,
-            height: elem.scrollHeight
+            width: elemWidth,
+            height: elemHeight
         }).then(canvas => {
             try {
                 if (!canvas || canvas.width === 0 || canvas.height === 0) {
                     throw new Error('Canvas vazio');
                 }
-                
+
                 const imgData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF('p', 'mm', 'a4');
-                
+
                 const pdfWidth = pdf.internal.pageSize.getWidth();
                 const pdfHeight = pdf.internal.pageSize.getHeight();
-                
-                // Margens reduzidas para usar melhor o espaço
+
+                // Margens adequadas
                 const topMargin = 5;
                 const bottomMargin = 5;
                 const sideMargin = 5;
                 const availableHeight = pdfHeight - topMargin - bottomMargin;
                 const availableWidth = pdfWidth - (sideMargin * 2);
-                
-                // Calcular escala para caber em UMA PÁGINA
-                const canvasAspectRatio = canvas.height / canvas.width;
-                const pdfAspectRatio = availableHeight / availableWidth;
-                
-                let imgWidth, imgHeight;
-                let pages = 1;
-                
-                if (canvasAspectRatio > pdfAspectRatio) {
-                    // Canvas é mais alto - limitar pela altura
-                    imgHeight = availableHeight;
-                    imgWidth = imgHeight / canvasAspectRatio;
-                } else {
-                    // Canvas é mais largo - limitar pela largura
-                    imgWidth = availableWidth;
-                    imgHeight = imgWidth * canvasAspectRatio;
-                }
-                
-                // Se a altura for muito grande (mais de 95% da página), considerar 2 páginas
-                if (imgHeight > availableHeight * 0.95) {
-                    pages = 2;
-                    imgHeight = availableHeight * 1.9; // Spread para 2 páginas
-                }
-                
-                // Usar toda a largura disponível
-                imgWidth = availableWidth;
-                imgHeight = imgWidth * canvasAspectRatio;
-                
-                // Posição inicial
-                let xPos = sideMargin;
-                let yPos = topMargin;
-                
-                // Adicionar primeira página
+
+                // Converter pixels para mm (1px = 0.264583mm at 96dpi)
+                const pxToMm = 25.4 / 96;
+                let imgWidth = canvas.width * pxToMm;
+                let imgHeight = canvas.height * pxToMm;
+
+                // Ajustar para caber em 1 página mantendo proporção
+                const scaleX = availableWidth / imgWidth;
+                const scaleY = availableHeight / imgHeight;
+                const scale = Math.min(scaleX, scaleY, 1); // Não aumentar
+
+                imgWidth *= scale;
+                imgHeight *= scale;
+
+                // Começar do lado esquerdo, começar do topo
+                const xPos = sideMargin;
+                const yPos = topMargin;
+
+                // Adicionar imagem em 1 página
                 pdf.addImage(imgData, 'PNG', xPos, yPos, imgWidth, imgHeight);
-                
-                // Adicionar segunda página se necessário
-                if (imgHeight > availableHeight) {
-                    pdf.addPage();
-                    yPos = topMargin;
-                    pdf.addImage(imgData, 'PNG', xPos, yPos - availableHeight, imgWidth, imgHeight);
-                }
-                
+
                 // Adicionar links
                 linkPositions.forEach(linkInfo => {
                     const pdfX = (linkInfo.x * imgWidth) / canvas.width + xPos;
                     const pdfY = (linkInfo.y * imgHeight) / canvas.height + yPos;
                     const pdfW = Math.max((linkInfo.width * imgWidth) / canvas.width, 2);
                     const pdfH = Math.max((linkInfo.height * imgHeight) / canvas.height, 2);
-                    
+
                     try {
                         pdf.link(pdfX, pdfY, pdfW, pdfH, { url: linkInfo.url });
                     } catch(e) {
                         console.warn('⚠️ Erro ao adicionar link:', e);
                     }
                 });
-                
+
                 // Salvar PDF
                 const filename = `curriculo_${(user.fullName || 'sem_nome').replace(/\s/g, '_')}.pdf`;
                 pdf.save(filename);
