@@ -1247,103 +1247,79 @@ function exportPDF() {
         console.log('📍 Links encontrados:', linkPositions);
         
         // Usar html2canvas para converter o elemento em imagem
-        // Garantir largura consistente do elemento para captura
-        const originalWidth = elem.style.width;
-        const originalMinWidth = elem.style.minWidth;
-        const originalMaxWidth = elem.style.maxWidth;
-        const originalDisplay = elem.style.display;
-        
-        // Usar 794px (equivalente a 210mm em 96dpi)
-        elem.style.width = '794px';
-        elem.style.minWidth = '794px';
-        elem.style.maxWidth = '794px';
-        elem.style.display = 'block';
-        
-        // Aguardar para garantir que o layout foi recalculado
-        requestAnimationFrame(() => {
-            html2canvas(elem, {
-                scale: 1.5,
-                useCORS: true,
-                logging: true,
-                backgroundColor: '#ffffff',
-                allowTaint: true,
-                foreignObjectRendering: true,
-                ignoreElements: (element) => {
-                    return element.id === 'toastContainer';
+        html2canvas(elem, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            allowTaint: true,
+            width: elem.scrollWidth,
+            height: elem.scrollHeight
+        }).then(canvas => {
+            try {
+                if (!canvas || canvas.width === 0 || canvas.height === 0) {
+                    throw new Error('Canvas vazio');
                 }
-            }).then(canvas => {
-                try {
-                    // Restaurar estilo original
-                    elem.style.width = originalWidth;
-                    elem.style.minWidth = originalMinWidth;
-                    elem.style.maxWidth = originalMaxWidth;
-                    elem.style.display = originalDisplay;
+                
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                
+                // Calcular tamanho da imagem para caber na página A4
+                const margin = 10;
+                const maxWidth = pdfWidth - (margin * 2);
+                const scale = maxWidth / (canvas.width / 2);
+                const imgHeight = (canvas.height / 2) * scale;
+                
+                // Se a altura exceder a página, fazer múltiplas páginas
+                let yPosition = margin;
+                let heightLeft = imgHeight;
+                
+                // Adicionar primeira página
+                pdf.addImage(imgData, 'PNG', margin, yPosition, maxWidth, imgHeight);
+                heightLeft -= (pdfHeight - margin * 2);
+                
+                // Adicionar páginas adicionais se necessário
+                while (heightLeft > 0) {
+                    yPosition = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', margin, yPosition, maxWidth, imgHeight);
+                    heightLeft -= (pdfHeight - margin * 2);
+                }
+                
+                // Adicionar links
+                linkPositions.forEach(linkInfo => {
+                    const pdfX = (linkInfo.x * maxWidth) / canvas.width + margin;
+                    const pdfY = (linkInfo.y * imgHeight) / canvas.height + margin;
+                    const pdfW = Math.max((linkInfo.width * maxWidth) / canvas.width, 2);
+                    const pdfH = Math.max((linkInfo.height * imgHeight) / canvas.height, 2);
                     
-                    if (!canvas || canvas.width === 0 || canvas.height === 0) {
-                        throw new Error('Canvas vazio - elemento não foi capturado');
+                    try {
+                        pdf.link(pdfX, pdfY, pdfW, pdfH, { url: linkInfo.url });
+                    } catch(e) {
+                        console.warn('⚠️ Erro ao adicionar link:', e);
                     }
-                    
-                    const imgData = canvas.toDataURL('image/png');
-                    const pdf = new jsPDF('p', 'mm', 'a4');
-                    
-                    const pdfWidth = pdf.internal.pageSize.getWidth();
-                    
-                    // Calcular altura mantendo proporção
-                    const canvasWidth = canvas.width;
-                    const canvasHeight = canvas.height;
-                    const imgWidth = pdfWidth - 20;
-                    const imgHeight = (canvasHeight * imgWidth) / canvasWidth;
-                    
-                    // Adicionar imagem na página
-                    pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
-                    
-                    // Adicionar links usando as coordenadas calculadas
-                    linkPositions.forEach(linkInfo => {
-                        const pdfX = (linkInfo.x * imgWidth / canvasWidth) + 10;
-                        const pdfY = (linkInfo.y * imgHeight / canvasHeight) + 10;
-                        const pdfW = Math.max((linkInfo.width * imgWidth) / canvasWidth, 2);
-                        const pdfH = Math.max((linkInfo.height * imgHeight) / canvasHeight, 2);
-                        
-                        console.log(`🔗 Adicionando link: ${linkInfo.url}`);
-                        
-                        try {
-                            pdf.link(pdfX, pdfY, pdfW, pdfH, { url: linkInfo.url });
-                            console.log(`✅ Link adicionado com sucesso`);
-                        } catch(e) {
-                            console.warn('⚠️ Erro ao adicionar link:', e);
-                        }
-                    });
-                    
-                    // Salvar PDF
-                    const filename = `curriculo_${(user.fullName || 'sem_nome').replace(/\s/g, '_')}.pdf`;
-                    pdf.save(filename);
-                    console.log('✅ PDF gerado com sucesso');
-                    createToast('✅ PDF gerado com sucesso!', 'success');
-                } catch (err) {
-                    console.error('❌ Erro ao gerar PDF:', err);
-                    createToast('Erro ao gerar PDF: ' + err.message, 'error');
-                    
-                    // Restaurar estilo original em caso de erro
-                    elem.style.width = originalWidth;
-                    elem.style.minWidth = originalMinWidth;
-                    elem.style.maxWidth = originalMaxWidth;
-                    elem.style.display = originalDisplay;
-                } finally {
-                    exportBtn.textContent = originalText;
-                    exportBtn.disabled = false;
-                }
-            }).catch(err => {
-                console.error('❌ Erro ao converter para imagem:', err);
-                createToast('Erro ao converter currículo: ' + err.message, 'error');
+                });
+                
+                // Salvar PDF
+                const filename = `curriculo_${(user.fullName || 'sem_nome').replace(/\s/g, '_')}.pdf`;
+                pdf.save(filename);
+                console.log('✅ PDF gerado com sucesso');
+                createToast('✅ PDF gerado com sucesso!', 'success');
+            } catch (err) {
+                console.error('❌ Erro ao gerar PDF:', err);
+                createToast('Erro ao gerar PDF: ' + err.message, 'error');
+            } finally {
                 exportBtn.textContent = originalText;
                 exportBtn.disabled = false;
-                
-                // Restaurar estilo original em caso de erro
-                elem.style.width = originalWidth;
-                elem.style.minWidth = originalMinWidth;
-                elem.style.maxWidth = originalMaxWidth;
-                elem.style.display = originalDisplay;
-            });
+            }
+        }).catch(err => {
+            console.error('❌ Erro ao converter para imagem:', err);
+            createToast('Erro ao converter currículo: ' + err.message, 'error');
+            exportBtn.textContent = originalText;
+            exportBtn.disabled = false;
         });
     } catch (err) {
         console.error('❌ Erro ao exportar PDF:', err);
