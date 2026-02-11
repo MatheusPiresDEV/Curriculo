@@ -1273,10 +1273,10 @@ function exportPDF() {
                 const pdfWidth = pdf.internal.pageSize.getWidth();
                 const pdfHeight = pdf.internal.pageSize.getHeight();
                 
-                // Margens
-                const topMargin = 10;
-                const bottomMargin = 10;
-                const sideMargin = 10;
+                // Margens reduzidas para usar melhor o espaço
+                const topMargin = 5;
+                const bottomMargin = 5;
+                const sideMargin = 5;
                 const availableHeight = pdfHeight - topMargin - bottomMargin;
                 const availableWidth = pdfWidth - (sideMargin * 2);
                 
@@ -1285,6 +1285,7 @@ function exportPDF() {
                 const pdfAspectRatio = availableHeight / availableWidth;
                 
                 let imgWidth, imgHeight;
+                let pages = 1;
                 
                 if (canvasAspectRatio > pdfAspectRatio) {
                     // Canvas é mais alto - limitar pela altura
@@ -1296,12 +1297,29 @@ function exportPDF() {
                     imgHeight = imgWidth * canvasAspectRatio;
                 }
                 
-                // Centralizar horizontalmente
-                const xPos = sideMargin + (availableWidth - imgWidth) / 2;
-                const yPos = topMargin;
+                // Se a altura for muito grande (mais de 95% da página), considerar 2 páginas
+                if (imgHeight > availableHeight * 0.95) {
+                    pages = 2;
+                    imgHeight = availableHeight * 1.9; // Spread para 2 páginas
+                }
                 
-                // Adicionar imagem em UMA PÁGINA
+                // Usar toda a largura disponível
+                imgWidth = availableWidth;
+                imgHeight = imgWidth * canvasAspectRatio;
+                
+                // Posição inicial
+                let xPos = sideMargin;
+                let yPos = topMargin;
+                
+                // Adicionar primeira página
                 pdf.addImage(imgData, 'PNG', xPos, yPos, imgWidth, imgHeight);
+                
+                // Adicionar segunda página se necessário
+                if (imgHeight > availableHeight) {
+                    pdf.addPage();
+                    yPos = topMargin;
+                    pdf.addImage(imgData, 'PNG', xPos, yPos - availableHeight, imgWidth, imgHeight);
+                }
                 
                 // Adicionar links
                 linkPositions.forEach(linkInfo => {
