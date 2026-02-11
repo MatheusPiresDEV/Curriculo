@@ -1247,10 +1247,10 @@ function exportPDF() {
         console.log('📍 Links encontrados:', linkPositions);
         
         // Determinar scale baseado no tamanho da tela
-        // Mobile: scale 1 para não ficar muito grande
-        // Desktop: scale 2 para melhor qualidade
+        // Mobile: scale reduzida
+        // Desktop: scale normal
         const isMobile = window.innerWidth <= 768;
-        const canvasScale = isMobile ? 0.75 : 2;
+        let canvasScale = isMobile ? 1 : 1.5;
         
         // Usar html2canvas para converter o elemento em imagem
         html2canvas(elem, {
@@ -1273,35 +1273,41 @@ function exportPDF() {
                 const pdfWidth = pdf.internal.pageSize.getWidth();
                 const pdfHeight = pdf.internal.pageSize.getHeight();
                 
-                // Calcular tamanho da imagem para caber na página A4
-                const margin = 10;
-                const maxWidth = pdfWidth - (margin * 2);
-                const scale = maxWidth / (canvas.width / canvasScale);
-                const imgHeight = (canvas.height / canvasScale) * scale;
+                // Margens
+                const topMargin = 10;
+                const bottomMargin = 10;
+                const sideMargin = 10;
+                const availableHeight = pdfHeight - topMargin - bottomMargin;
+                const availableWidth = pdfWidth - (sideMargin * 2);
                 
-                console.log(`📊 Canvas: ${canvas.width}x${canvas.height}, Scale: ${canvasScale}, Altura PDF: ${imgHeight}mm, Altura página: ${pdfHeight}mm`);
+                // Calcular escala para caber em UMA PÁGINA
+                const canvasAspectRatio = canvas.height / canvas.width;
+                const pdfAspectRatio = availableHeight / availableWidth;
                 
-                // Se a altura exceder a página, fazer múltiplas páginas
-                let yPosition = margin;
-                let heightLeft = imgHeight;
+                let imgWidth, imgHeight;
                 
-                // Adicionar primeira página
-                pdf.addImage(imgData, 'PNG', margin, yPosition, maxWidth, imgHeight);
-                heightLeft -= (pdfHeight - margin * 2);
-                
-                // Adicionar páginas adicionais se necessário
-                while (heightLeft > 0) {
-                    yPosition = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', margin, yPosition, maxWidth, imgHeight);
-                    heightLeft -= (pdfHeight - margin * 2);
+                if (canvasAspectRatio > pdfAspectRatio) {
+                    // Canvas é mais alto - limitar pela altura
+                    imgHeight = availableHeight;
+                    imgWidth = imgHeight / canvasAspectRatio;
+                } else {
+                    // Canvas é mais largo - limitar pela largura
+                    imgWidth = availableWidth;
+                    imgHeight = imgWidth * canvasAspectRatio;
                 }
+                
+                // Centralizar horizontalmente
+                const xPos = sideMargin + (availableWidth - imgWidth) / 2;
+                const yPos = topMargin;
+                
+                // Adicionar imagem em UMA PÁGINA
+                pdf.addImage(imgData, 'PNG', xPos, yPos, imgWidth, imgHeight);
                 
                 // Adicionar links
                 linkPositions.forEach(linkInfo => {
-                    const pdfX = (linkInfo.x * maxWidth) / canvas.width + margin;
-                    const pdfY = (linkInfo.y * imgHeight) / canvas.height + margin;
-                    const pdfW = Math.max((linkInfo.width * maxWidth) / canvas.width, 2);
+                    const pdfX = (linkInfo.x * imgWidth) / canvas.width + xPos;
+                    const pdfY = (linkInfo.y * imgHeight) / canvas.height + yPos;
+                    const pdfW = Math.max((linkInfo.width * imgWidth) / canvas.width, 2);
                     const pdfH = Math.max((linkInfo.height * imgHeight) / canvas.height, 2);
                     
                     try {
@@ -1314,7 +1320,7 @@ function exportPDF() {
                 // Salvar PDF
                 const filename = `curriculo_${(user.fullName || 'sem_nome').replace(/\s/g, '_')}.pdf`;
                 pdf.save(filename);
-                console.log('✅ PDF gerado com sucesso');
+                console.log('✅ PDF gerado com sucesso em 1 página');
                 createToast('✅ PDF gerado com sucesso!', 'success');
             } catch (err) {
                 console.error('❌ Erro ao gerar PDF:', err);
