@@ -743,7 +743,7 @@ input::placeholder {
 .curriculum-preview {
     position: relative;
     width: 100%;
-    max-width: 820px;
+    max-width: none;
     margin: 0 auto 2rem auto;
     background-color: transparent;
     overflow: visible;
@@ -757,7 +757,7 @@ input::placeholder {
     min-height: auto;
     box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
     margin: 0 auto;
-    width: 210mm;
+    width: 794px;
     box-sizing: border-box;
 }
 
