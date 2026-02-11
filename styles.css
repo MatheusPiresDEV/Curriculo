@@ -713,7 +713,7 @@ input::placeholder {
 }
 
 .modal.show {
-    display: flex;
+    display: flex !important;
 }
 
 .modal-content {
@@ -746,10 +746,6 @@ input::placeholder {
     margin: 0 auto 2rem auto;
     background-color: transparent;
     overflow: visible;
-}
-
-.curriculum-preview.show {
-    /* no-op for now */
 }
 
 .curriculum-document {
